@@ -1,0 +1,3933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1TVPLAY — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1TVPLAY — DESIGN SYSTEM
+   Reverse-engineered from 1tvplay.ge (mobile app + web)
+   Optimized for html.to.design Figma import
+   ============================================================ */
+
+:root {
+  /* ---------- COLOR TOKENS ---------- */
+  /* Brand */
+  --color-brand-red: #CF1020;
+  --color-brand-red-hover: #E01A2B;
+  --color-brand-red-pressed: #A80C1A;
+  --color-brand-red-soft: rgba(207, 16, 32, 0.16);
+  --color-brand-red-glow: rgba(207, 16, 32, 0.40);
+
+  /* Surfaces (dark theme) */
+  --color-bg-page: #0B1016;
+  --color-bg-surface: #151B23;
+  --color-bg-elevated: #1F2630;
+  --color-bg-input: #1A2029;
+  --color-bg-footer: #070B10;
+  --color-bg-overlay: rgba(11, 16, 22, 0.88);
+
+  /* Text */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(255, 255, 255, 0.72);
+  --color-text-muted: rgba(255, 255, 255, 0.48);
+  --color-text-disabled: rgba(255, 255, 255, 0.32);
+  --color-text-on-red: #FFFFFF;
+
+  /* Borders */
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-default: rgba(255, 255, 255, 0.16);
+  --color-border-strong: rgba(255, 255, 255, 0.32);
+  --color-border-focus: var(--color-brand-red);
+
+  /* Semantic */
+  --color-live-red: #CF1020;
+  --color-rating-gold: #F5C518; /* IMDB yellow */
+  --color-success: #2ECC71;
+  --color-warning: #F39C12;
+
+  /* ---------- TYPOGRAPHY TOKENS ---------- */
+  --font-primary: 'Noto Sans Georgian', 'Noto Sans', system-ui, sans-serif;
+  --font-latin: 'Noto Sans', system-ui, sans-serif;
+
+  /* Font sizes — desktop */
+  --text-hero: 48px;
+  --text-h1: 40px;
+  --text-h2: 28px;
+  --text-h3: 22px;
+  --text-h4: 18px;
+  --text-body-lg: 16px;
+  --text-body: 14px;
+  --text-caption: 13px;
+  --text-label: 12px;
+  --text-micro: 11px;
+
+  /* Line heights */
+  --lh-tight: 1.15;
+  --lh-snug: 1.3;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+
+  /* Font weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  /* ---------- SPACING TOKENS (8px grid) ---------- */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ---------- RADIUS TOKENS ---------- */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+
+  /* ---------- SHADOW TOKENS ---------- */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.32);
+  --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.56);
+  --shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.64);
+  --shadow-player: 0 8px 32px rgba(0, 0, 0, 0.48);
+  --shadow-red-glow: 0 0 24px rgba(207, 16, 32, 0.48);
+  --shadow-red-glow-strong: 0 0 40px rgba(207, 16, 32, 0.64);
+
+  /* ---------- LAYOUT TOKENS ---------- */
+  --container-max: 1440px;
+  --container-padding-desktop: 64px;
+  --container-padding-mobile: 16px;
+  --mobile-frame-width: 390px;
+
+  /* ---------- MOTION TOKENS ---------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+}
+
+/* ============================================================
+   STYLEGUIDE CHROME (not part of the 1TVPlay design system —
+   this is just the container that displays it)
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #0B1016;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.sg-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 32px 120px;
+}
+
+.sg-hero {
+  padding: 80px 0 64px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  margin-bottom: 64px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.sg-hero-title {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #FFFFFF 0%, #CF1020 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sg-hero-title::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 4px;
+  background: var(--color-brand-red);
+  margin-top: 24px;
+  border-radius: 2px;
+}
+
+.sg-hero-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  max-width: 420px;
+  line-height: 1.5;
+}
+
+.sg-hero-meta {
+  display: flex;
+  gap: 32px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 16px;
+}
+
+.sg-hero-meta b { color: var(--color-text-primary); font-weight: 600; }
+
+.sg-section {
+  margin-bottom: 96px;
+  scroll-margin-top: 32px;
+}
+
+.sg-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.sg-section-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sg-section-number {
+  font-size: 14px;
+  font-family: var(--font-latin);
+  font-weight: 500;
+  color: var(--color-brand-red);
+  padding: 4px 10px;
+  background: var(--color-brand-red-soft);
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.sg-section-desc {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  max-width: 480px;
+  text-align: right;
+}
+
+.sg-subsection {
+  margin-bottom: 56px;
+}
+
+.sg-subsection-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text-primary);
+}
+
+.sg-subsection-title::before {
+  content: "";
+  width: 3px;
+  height: 18px;
+  background: var(--color-brand-red);
+  border-radius: 2px;
+}
+
+.sg-subsection-note {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin-bottom: 20px;
+  margin-top: -8px;
+  font-style: italic;
+}
+
+.sg-component-frame {
+  background: var(--color-bg-page);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  padding: 40px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.sg-component-frame[data-bg="surface"] { background: var(--color-bg-surface); }
+.sg-component-frame[data-bg="dim"] { background: #05080C; }
+
+.sg-component-label {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 10px;
+  font-family: var(--font-latin);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.sg-states-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.sg-state {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.sg-state-label {
+  font-size: 10px;
+  font-family: var(--font-latin);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+/* TOC */
+.sg-toc {
+  position: sticky;
+  top: 0;
+  background: rgba(11, 16, 22, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: 16px 32px;
+  z-index: 100;
+  margin: -48px -32px 48px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sg-toc::-webkit-scrollbar { display: none; }
+
+.sg-toc a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: all 150ms;
+  font-family: var(--font-latin);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.sg-toc a:hover {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================================
+   TOKENS — COLOR SWATCHES
+   ============================================================ */
+
+.token-color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.token-swatch {
+  background: var(--color-bg-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.token-swatch-color {
+  height: 96px;
+  position: relative;
+}
+
+.token-swatch-meta {
+  padding: 12px 14px;
+}
+
+.token-swatch-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+  font-family: var(--font-latin);
+}
+
+.token-swatch-value {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+/* ============================================================
+   TOKENS — TYPOGRAPHY SPECIMENS
+   ============================================================ */
+
+.type-specimen {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  align-items: baseline;
+}
+
+.type-specimen:last-child { border-bottom: none; }
+
+.type-specimen-meta {
+  font-family: var(--font-latin);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+}
+
+.type-specimen-meta b {
+  display: block;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.type-specimen-sample {
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+/* ============================================================
+   TOKENS — SPACING SCALE
+   ============================================================ */
+
+.spacing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.spacing-row {
+  display: grid;
+  grid-template-columns: 100px 80px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 0;
+}
+
+.spacing-token-name {
+  font-family: 'Monaco', monospace;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.spacing-token-value {
+  font-family: var(--font-latin);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.spacing-bar {
+  height: 18px;
+  background: var(--color-brand-red);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   TOKENS — RADII
+   ============================================================ */
+
+.radius-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.radius-sample {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--color-bg-elevated), var(--color-bg-surface));
+  border: 1px solid var(--color-border-default);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.radius-sample-name {
+  font-family: 'Monaco', monospace;
+  font-size: 11px;
+  color: var(--color-text-primary);
+}
+
+.radius-sample-value {
+  font-family: var(--font-latin);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+   TOKENS — SHADOWS
+   ============================================================ */
+
+.shadow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 32px;
+  padding: 24px;
+  background: var(--color-bg-page);
+  border-radius: 12px;
+}
+
+.shadow-sample {
+  aspect-ratio: 3/2;
+  background: var(--color-bg-elevated);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px;
+  text-align: center;
+}
+
+.shadow-sample-name {
+  font-family: 'Monaco', monospace;
+  font-size: 11px;
+  color: var(--color-text-primary);
+}
+
+.shadow-sample-desc {
+  font-family: var(--font-latin);
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+   =============================================================
+   1TVPLAY COMPONENT STYLES
+   All classes below represent the actual design system.
+   =============================================================
+   ============================================================ */
+
+/* ---------- LOGO ---------- */
+.tv-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-brand-red);
+  text-decoration: none;
+}
+
+.tv-logo-mark {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.tv-logo-wordmark {
+  font-family: var(--font-latin);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.tv-logo-wordmark-red {
+  color: var(--color-brand-red);
+}
+
+.tv-logo-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--color-border-default);
+  margin: 0 8px;
+}
+
+/* ---------- BUTTONS ---------- */
+.tv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-out);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.tv-btn-primary {
+  background: var(--color-brand-red);
+  color: var(--color-text-on-red);
+}
+.tv-btn-primary:hover { background: var(--color-brand-red-hover); }
+.tv-btn-primary:active { background: var(--color-brand-red-pressed); }
+.tv-btn-primary:disabled {
+  background: rgba(207, 16, 32, 0.32);
+  color: rgba(255, 255, 255, 0.56);
+  cursor: not-allowed;
+}
+
+.tv-btn-secondary {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-default);
+}
+.tv-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--color-border-strong);
+}
+.tv-btn-secondary:active { background: rgba(255, 255, 255, 0.1); }
+
+.tv-btn-ghost {
+  background: transparent;
+  color: var(--color-text-primary);
+  padding: 8px 12px;
+}
+.tv-btn-ghost:hover { background: rgba(255, 255, 255, 0.06); }
+
+.tv-btn-large { padding: 16px 32px; font-size: var(--text-body-lg); }
+.tv-btn-small { padding: 8px 16px; font-size: var(--text-caption); }
+
+.tv-btn-icon-only {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.tv-btn-icon-only:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--color-border-strong);
+}
+
+/* Circular icon button (for player) */
+.tv-btn-round {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+  backdrop-filter: blur(8px);
+}
+.tv-btn-round:hover { background: rgba(255, 255, 255, 0.16); }
+
+.tv-btn-play-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-red);
+  color: #FFF;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-red-glow);
+  transition: all var(--duration-base) var(--ease-out);
+}
+.tv-btn-play-circle:hover {
+  background: var(--color-brand-red-hover);
+  box-shadow: var(--shadow-red-glow-strong);
+  transform: scale(1.05);
+}
+
+.tv-btn-play-square {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--color-brand-red);
+  color: #FFF;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.tv-btn-play-square:hover { background: var(--color-brand-red-hover); }
+
+/* ---------- BADGES ---------- */
+.tv-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-label);
+  font-weight: var(--fw-bold);
+  font-family: var(--font-latin);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.tv-badge-live {
+  background: var(--color-brand-red);
+  color: #FFF;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.tv-badge-live-pill {
+  background: var(--color-brand-red);
+  color: #FFF;
+  padding: 8px 14px 8px 12px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: var(--fw-bold);
+  font-size: var(--text-caption);
+}
+
+.tv-badge-age {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-default);
+  padding: 3px 8px;
+  font-size: var(--text-label);
+  font-weight: var(--fw-semibold);
+}
+
+.tv-badge-imdb {
+  background: var(--color-rating-gold);
+  color: #000;
+  padding: 3px 8px;
+  font-weight: var(--fw-extrabold);
+  font-family: var(--font-latin);
+  font-size: var(--text-label);
+  letter-spacing: 0.04em;
+}
+
+.tv-badge-year {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-default);
+  padding: 3px 10px;
+  font-weight: var(--fw-medium);
+}
+
+.tv-badge-category {
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 0;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: var(--fw-regular);
+  font-size: var(--text-caption);
+}
+
+/* ---------- NAVIGATION (DESKTOP) ---------- */
+.tv-nav-top {
+  background: var(--color-bg-page);
+  border-bottom: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tv-nav-top-utility {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 64px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  gap: 24px;
+  min-height: 64px;
+}
+
+.tv-nav-top-brands {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.tv-nav-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-latin);
+  color: var(--color-text-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+}
+
+.tv-eurovision-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  font-family: var(--font-latin);
+  font-size: 11px;
+  font-weight: var(--fw-extrabold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tv-eurovision-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, #0066FF 0%, #00C8FF 50%, #FF00AA 100%);
+  position: relative;
+  flex-shrink: 0;
+}
+.tv-eurovision-icon::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  background: var(--color-bg-page);
+  border-radius: 50%;
+}
+.tv-eurovision-icon::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  background: linear-gradient(135deg, #0066FF, #FF00AA);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.tv-nav-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tv-nav-top-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 64px;
+  min-height: 72px;
+}
+
+.tv-nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.tv-nav-link {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: var(--text-body-lg);
+  font-weight: var(--fw-medium);
+  padding: 8px 0;
+  position: relative;
+  transition: color var(--duration-base) var(--ease-out);
+}
+.tv-nav-link:hover { color: var(--color-brand-red); }
+.tv-nav-link-active {
+  color: var(--color-brand-red);
+}
+.tv-nav-link-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--color-brand-red);
+  border-radius: 1px;
+}
+
+.tv-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-latin);
+  font-size: var(--text-caption);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-primary);
+  padding: 8px 14px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+}
+.tv-lang-switch:hover { background: rgba(255, 255, 255, 0.04); }
+
+.tv-user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--fw-medium);
+}
+
+.tv-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+}
+
+/* ---------- SEARCH ---------- */
+.tv-search-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  width: 280px;
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.tv-search-input:focus-within {
+  border-color: var(--color-brand-red);
+  box-shadow: 0 0 0 3px var(--color-brand-red-soft);
+  background: var(--color-bg-surface);
+}
+
+.tv-search-input input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  flex: 1;
+  width: 100%;
+}
+.tv-search-input input::placeholder { color: var(--color-text-muted); }
+
+/* ---------- FORM INPUTS ---------- */
+.tv-input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 360px;
+}
+
+.tv-input-label {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+  font-weight: var(--fw-medium);
+  pointer-events: none;
+  transition: all var(--duration-base) var(--ease-out);
+  background: transparent;
+  padding: 0 4px;
+}
+
+.tv-input-field.filled .tv-input-label,
+.tv-input-field:focus-within .tv-input-label {
+  top: -8px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-page);
+}
+
+.tv-input {
+  width: 100%;
+  padding: 20px 16px 12px;
+  background: transparent;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  outline: none;
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.tv-input:focus {
+  border-color: var(--color-brand-red);
+  box-shadow: 0 0 0 3px var(--color-brand-red-soft);
+}
+
+.tv-input:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+/* Simple input (no floating label) */
+.tv-input-simple {
+  padding: 12px 16px;
+}
+
+/* ---------- DROPDOWN / SELECT ---------- */
+.tv-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: transparent;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  cursor: pointer;
+  min-width: 200px;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.tv-select:hover { border-color: var(--color-border-strong); }
+.tv-select:focus { border-color: var(--color-brand-red); outline: none; }
+
+.tv-select-placeholder { color: var(--color-text-muted); }
+
+/* ---------- CONTENT CARDS ---------- */
+.tv-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.tv-card:hover { transform: translateY(-4px); }
+
+.tv-card-media {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--duration-base) var(--ease-out);
+}
+
+.tv-card:hover .tv-card-media {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.tv-card-landscape .tv-card-media {
+  aspect-ratio: 16/9;
+}
+
+.tv-card-portrait .tv-card-media {
+  aspect-ratio: 2/3;
+}
+
+.tv-card-square .tv-card-media {
+  aspect-ratio: 1;
+}
+
+.tv-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tv-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 40%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tv-card:hover .tv-card-overlay { opacity: 1; }
+
+.tv-card-play-overlay {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-red-glow);
+}
+
+.tv-card-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.48);
+}
+
+.tv-card-progress-bar {
+  height: 100%;
+  background: var(--color-brand-red);
+}
+
+.tv-card-episode-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--color-text-primary);
+  padding: 4px 8px;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-label);
+  font-weight: var(--fw-semibold);
+  font-family: var(--font-latin);
+  backdrop-filter: blur(4px);
+}
+
+.tv-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 2px;
+}
+
+.tv-card-title {
+  font-size: var(--text-body);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--lh-snug);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tv-card-meta {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  font-weight: var(--fw-regular);
+}
+
+/* Episode variant (with red underline active state) */
+.tv-card-episode {
+  position: relative;
+}
+.tv-card-episode .tv-card-media::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--color-brand-red);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+.tv-card-episode-active .tv-card-media::after { opacity: 1; }
+
+/* ---------- SECTION HEADER (rails) ---------- */
+.tv-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tv-rail-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.tv-rail-title {
+  font-size: var(--text-h3);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.01em;
+}
+
+.tv-rail-title-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: color var(--duration-base) var(--ease-out);
+}
+.tv-rail-title-link:hover { color: var(--color-brand-red); }
+
+.tv-rail-see-all {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-brand-red);
+  color: #FFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.tv-rail-arrow {
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #FFF;
+  border-right: 2px solid #FFF;
+  transform: rotate(45deg);
+}
+
+.tv-rail-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.tv-rail-arrow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-default);
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.tv-rail-arrow-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--color-border-strong);
+}
+
+.tv-rail-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 220px;
+  gap: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+}
+.tv-rail-track::-webkit-scrollbar { display: none; }
+
+.tv-rail-track-portrait {
+  grid-auto-columns: 180px;
+}
+
+/* ---------- HERO BANNER ---------- */
+.tv-hero {
+  position: relative;
+  min-height: 560px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-card);
+}
+
+.tv-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tv-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(11, 16, 22, 0.92) 0%, rgba(11, 16, 22, 0.4) 50%, rgba(11, 16, 22, 0) 100%),
+    linear-gradient(180deg, transparent 40%, rgba(11, 16, 22, 0.88) 100%);
+}
+
+.tv-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 72px;
+  max-width: 640px;
+  height: 100%;
+  justify-content: flex-end;
+  min-height: 560px;
+}
+
+.tv-hero-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tv-hero-title {
+  font-size: var(--text-hero);
+  font-weight: var(--fw-extrabold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.tv-hero-description {
+  font-size: var(--text-body-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-relaxed);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 520px;
+}
+
+.tv-hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ---------- CAROUSEL PAGINATION ---------- */
+.tv-carousel-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 16px;
+}
+
+.tv-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.24);
+  transition: all var(--duration-base) var(--ease-out);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+.tv-carousel-dot-active {
+  background: var(--color-text-primary);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ---------- VIDEO PLAYER (DESKTOP) ---------- */
+.tv-player {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-player);
+}
+
+.tv-player-frame {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tv-player-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  gap: 16px;
+}
+
+.tv-player-back {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--duration-base) var(--ease-out);
+}
+.tv-player-back:hover { background: rgba(255, 255, 255, 0.1); }
+
+.tv-player-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--text-body-lg);
+  font-weight: var(--fw-semibold);
+  color: #FFF;
+}
+
+.tv-player-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: radial-gradient(ellipse at center, #1A0205 0%, #000 70%);
+}
+
+.tv-player-poster-overlay {
+  opacity: 0.35;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.tv-player-bottombar {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+  padding: 16px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tv-player-time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-latin);
+  font-size: var(--text-caption);
+  color: #FFF;
+  font-weight: var(--fw-medium);
+}
+
+.tv-player-progress {
+  position: relative;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.24);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.tv-player-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--color-brand-red);
+  border-radius: 2px;
+}
+
+.tv-player-progress-handle {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--color-brand-red);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 4px rgba(207, 16, 32, 0.24);
+}
+
+.tv-player-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.tv-player-controls-left,
+.tv-player-controls-center,
+.tv-player-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tv-player-controls-center {
+  flex: 1;
+  justify-content: center;
+}
+
+.tv-player-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tv-player-volume-bar {
+  width: 80px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.24);
+  border-radius: 2px;
+  position: relative;
+}
+.tv-player-volume-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 60%;
+  background: #FFF;
+  border-radius: 2px;
+}
+
+.tv-player-quality-badge {
+  font-family: var(--font-latin);
+  font-size: var(--text-label);
+  font-weight: var(--fw-extrabold);
+  color: #FFF;
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: var(--radius-xs);
+  background: transparent;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- TAB PILLS ---------- */
+.tv-tabs {
+  display: flex;
+  gap: 32px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: 0;
+}
+
+.tv-tab {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body-lg);
+  font-weight: var(--fw-medium);
+  padding: 14px 4px;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--duration-base) var(--ease-out);
+}
+.tv-tab:hover { color: var(--color-text-primary); }
+
+.tv-tab-active {
+  color: var(--color-text-primary);
+  font-weight: var(--fw-semibold);
+}
+
+.tv-tab-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--color-brand-red);
+  border-radius: 1px;
+}
+
+/* Pill-style tabs (like the ეპიზოდები / მიმოხილვა in mobile detail) */
+.tv-pill-tabs {
+  display: inline-flex;
+  gap: 8px;
+  padding: 0;
+}
+
+.tv-pill-tab {
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-default);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.tv-pill-tab:hover { color: var(--color-text-primary); border-color: var(--color-border-strong); }
+.tv-pill-tab-active {
+  background: var(--color-brand-red);
+  color: #FFF;
+  border-color: var(--color-brand-red);
+}
+
+/* ---------- SIDEBAR NAV (ACCOUNT) ---------- */
+.tv-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  min-width: 260px;
+}
+
+.tv-sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-out);
+  background: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+}
+.tv-sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-primary);
+}
+
+.tv-sidebar-item-active {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+.tv-sidebar-chevron {
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.64;
+}
+
+/* ---------- FOOTER ---------- */
+.tv-footer {
+  background: var(--color-bg-footer);
+  padding: 48px 64px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.tv-footer-graphic {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 180px;
+  height: 180px;
+  pointer-events: none;
+}
+
+.tv-footer-graphic::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 180px 180px;
+  border-color: transparent transparent var(--color-brand-red) transparent;
+  opacity: 0.92;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.tv-footer-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.tv-footer-links {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.tv-footer-link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-body);
+  font-weight: var(--fw-medium);
+  transition: color var(--duration-base) var(--ease-out);
+}
+.tv-footer-link:hover { color: var(--color-text-primary); }
+
+.tv-footer-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.tv-social-link {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  opacity: 0.8;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+.tv-social-link:hover { opacity: 1; }
+
+.tv-partner-strip {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 24px 0;
+  border-top: 1px solid var(--color-border-subtle);
+  opacity: 0.72;
+  flex-wrap: wrap;
+}
+
+.tv-partner-logo {
+  color: var(--color-text-primary);
+  font-family: var(--font-latin);
+  font-weight: var(--fw-bold);
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   MOBILE COMPONENTS
+   ============================================================ */
+
+.tv-mobile-frame {
+  width: 390px;
+  min-height: 844px;
+  background: var(--color-bg-page);
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: var(--shadow-modal);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.tv-mobile-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px 8px;
+  font-family: var(--font-latin);
+  font-size: 15px;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-primary);
+  min-height: 44px;
+}
+
+.tv-mobile-statusbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tv-mobile-battery {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--color-text-primary);
+  color: #000;
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  font-family: var(--font-latin);
+}
+
+.tv-mobile-topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  gap: 12px;
+}
+
+.tv-mobile-topnav-brands {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tv-mobile-live-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-default);
+  font-family: var(--font-latin);
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  position: relative;
+  padding: 4px;
+}
+
+.tv-mobile-iconbtn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid var(--color-border-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.tv-mobile-page-title {
+  padding: 20px 16px 16px;
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* Mobile bottom tab bar with red curved accent — signature element */
+.tv-mobile-tabbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 14px 0 20px;
+  background: var(--color-bg-surface);
+  margin-top: auto;
+}
+
+.tv-mobile-tabbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-brand-red) 8%,
+    var(--color-brand-red) 28%,
+    transparent 50%,
+    transparent 60%,
+    var(--color-brand-red) 80%,
+    var(--color-brand-red) 100%
+  );
+  clip-path: polygon(
+    0% 100%, 0% 40%, 8% 40%, 14% 0%, 28% 0%, 34% 40%,
+    48% 40%, 56% 100%, 100% 100%
+  );
+  display: none; /* using SVG version instead */
+}
+
+.tv-mobile-tabbar-accent {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 28px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tv-mobile-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: var(--fw-medium);
+  flex: 1;
+}
+
+.tv-mobile-tab-active {
+  color: var(--color-text-primary);
+  position: relative;
+}
+
+.tv-mobile-tab-active-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -28px;
+  border: 2px solid var(--color-bg-page);
+}
+
+.tv-mobile-hero {
+  position: relative;
+  aspect-ratio: 1/1.05;
+  margin: 0 0 16px;
+  overflow: hidden;
+}
+
+.tv-mobile-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tv-mobile-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, var(--color-bg-page) 100%);
+}
+
+.tv-mobile-hero-content {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tv-mobile-hero-title {
+  font-size: 28px;
+  font-weight: var(--fw-extrabold);
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.tv-mobile-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 2px solid var(--color-brand-red);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--fw-semibold);
+  align-self: flex-start;
+  font-family: var(--font-primary);
+  cursor: pointer;
+}
+
+.tv-mobile-section-title {
+  padding: 16px 16px 12px;
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.tv-mobile-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 16px 24px;
+}
+
+.tv-mobile-filters {
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px 16px;
+}
+
+.tv-mobile-filters .tv-select {
+  flex: 1;
+  padding: 14px 16px;
+  font-size: var(--text-body);
+}
+
+.tv-mobile-filters .tv-select:last-child {
+  flex: 0 0 auto;
+  min-width: 100px;
+}
+
+/* Mobile player */
+.tv-mobile-player {
+  background: var(--color-bg-page);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tv-mobile-player-screen {
+  aspect-ratio: 16/11;
+  background: radial-gradient(ellipse at center, #2A0308 0%, #000 70%);
+  border-radius: var(--radius-md);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.tv-mobile-player-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 2;
+}
+
+.tv-mobile-player-skip {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  background: transparent;
+  border: none;
+  opacity: 0.88;
+  cursor: pointer;
+}
+
+.tv-mobile-player-pause {
+  width: 72px;
+  height: 72px;
+  border: 2px solid var(--color-brand-red);
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.48);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  box-shadow: var(--shadow-red-glow);
+  cursor: pointer;
+}
+
+.tv-mobile-player-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+  font-family: var(--font-latin);
+  font-size: var(--text-caption);
+  color: #FFF;
+  font-weight: var(--fw-medium);
+}
+
+.tv-mobile-player-scrub {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 2px;
+  position: relative;
+  margin: 0 4px;
+}
+
+.tv-mobile-player-scrub-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2%;
+  background: var(--color-brand-red);
+  border-radius: 2px;
+}
+
+.tv-mobile-player-scrub-dot {
+  position: absolute;
+  left: 2%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--color-brand-red);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tv-mobile-player-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.tv-mobile-player-action {
+  padding: 16px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ---------- UTILITIES ---------- */
+.tv-icon { width: 20px; height: 20px; display: inline-block; flex-shrink: 0; }
+.tv-icon-sm { width: 16px; height: 16px; }
+.tv-icon-lg { width: 24px; height: 24px; }
+.tv-icon-xl { width: 32px; height: 32px; }
+
+/* Fake image placeholders used throughout */
+.tv-placeholder-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+</style>
+</head>
+<body>
+
+<div class="sg-container">
+
+  <!-- ============================================================
+       TABLE OF CONTENTS
+       ============================================================ -->
+  <nav class="sg-toc">
+    <a href="#tokens">Tokens</a>
+    <a href="#colors">Colors</a>
+    <a href="#typography">Typography</a>
+    <a href="#spacing">Spacing</a>
+    <a href="#radii">Radii</a>
+    <a href="#shadows">Shadows</a>
+    <a href="#icons">Icons</a>
+    <a href="#desktop">Desktop</a>
+    <a href="#logo">Logo</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#badges">Badges</a>
+    <a href="#inputs">Inputs</a>
+    <a href="#nav">Navigation</a>
+    <a href="#cards">Cards</a>
+    <a href="#hero">Hero</a>
+    <a href="#rails">Rails</a>
+    <a href="#player">Player</a>
+    <a href="#tabs">Tabs</a>
+    <a href="#sidebar">Sidebar</a>
+    <a href="#footer">Footer</a>
+    <a href="#mobile">Mobile</a>
+    <a href="#mobile-nav">Mobile Nav</a>
+    <a href="#mobile-tabbar">Tab Bar</a>
+    <a href="#mobile-hero">Mobile Hero</a>
+    <a href="#mobile-grid">Mobile Grid</a>
+    <a href="#mobile-player">Mobile Player</a>
+  </nav>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="sg-hero">
+    <div>
+      <h1 class="sg-hero-title">1TVPLAY<br>Design System</h1>
+      <p class="sg-hero-subtitle" style="margin-top: 32px">A reverse-engineered component library extracted from the 1TVPlay streaming platform (desktop web + mobile app).</p>
+      <div class="sg-hero-meta">
+        <div><b>Version</b> 1.0</div>
+        <div><b>Components</b> 42</div>
+        <div><b>Tokens</b> 68</div>
+        <div><b>Scope</b> Desktop + Mobile</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SECTION 1 — DESIGN TOKENS
+       ============================================================ -->
+  <section class="sg-section" id="tokens">
+    <div class="sg-section-header">
+      <h2 class="sg-section-title">
+        <span class="sg-section-number">01</span>
+        Design Tokens
+      </h2>
+      <p class="sg-section-desc">The atomic design decisions — colors, typography, spacing, radii, shadows, and icons. These map directly to Figma variables on import.</p>
+    </div>
+
+    <!-- ---------- COLORS ---------- -->
+    <div class="sg-subsection" id="colors">
+      <h3 class="sg-subsection-title">Colors</h3>
+      <p class="sg-subsection-note">Dark-first palette anchored by the 1TV signature red. All interactive states derive from these base values.</p>
+
+      <p style="color: var(--color-text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin: 24px 0 12px;">Brand</p>
+      <div class="token-color-grid">
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #CF1020"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">brand/red</div>
+            <div class="token-swatch-value">#CF1020</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #E01A2B"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">brand/red-hover</div>
+            <div class="token-swatch-value">#E01A2B</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #A80C1A"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">brand/red-pressed</div>
+            <div class="token-swatch-value">#A80C1A</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: rgba(207, 16, 32, 0.16)"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">brand/red-soft</div>
+            <div class="token-swatch-value">#CF1020 @ 16%</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="color: var(--color-text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin: 32px 0 12px;">Surfaces</p>
+      <div class="token-color-grid">
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #0B1016"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">bg/page</div>
+            <div class="token-swatch-value">#0B1016</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #151B23"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">bg/surface</div>
+            <div class="token-swatch-value">#151B23</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #1F2630"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">bg/elevated</div>
+            <div class="token-swatch-value">#1F2630</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #1A2029"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">bg/input</div>
+            <div class="token-swatch-value">#1A2029</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #070B10"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">bg/footer</div>
+            <div class="token-swatch-value">#070B10</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="color: var(--color-text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin: 32px 0 12px;">Text</p>
+      <div class="token-color-grid">
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #FFFFFF"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">text/primary</div>
+            <div class="token-swatch-value">#FFFFFF</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: rgba(255,255,255,0.72)"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">text/secondary</div>
+            <div class="token-swatch-value">#FFFFFF @ 72%</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: rgba(255,255,255,0.48)"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">text/muted</div>
+            <div class="token-swatch-value">#FFFFFF @ 48%</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: rgba(255,255,255,0.32)"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">text/disabled</div>
+            <div class="token-swatch-value">#FFFFFF @ 32%</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="color: var(--color-text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin: 32px 0 12px;">Borders & Semantic</p>
+      <div class="token-color-grid">
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: rgba(255,255,255,0.08)"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">border/subtle</div>
+            <div class="token-swatch-value">#FFFFFF @ 8%</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: rgba(255,255,255,0.16)"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">border/default</div>
+            <div class="token-swatch-value">#FFFFFF @ 16%</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: rgba(255,255,255,0.32)"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">border/strong</div>
+            <div class="token-swatch-value">#FFFFFF @ 32%</div>
+          </div>
+        </div>
+        <div class="token-swatch">
+          <div class="token-swatch-color" style="background: #F5C518"></div>
+          <div class="token-swatch-meta">
+            <div class="token-swatch-name">rating/imdb</div>
+            <div class="token-swatch-value">#F5C518</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- TYPOGRAPHY ---------- -->
+    <div class="sg-subsection" id="typography">
+      <h3 class="sg-subsection-title">Typography</h3>
+      <p class="sg-subsection-note">Noto Sans Georgian as the primary family, with matching Noto Sans for Latin. Georgian-first hierarchy.</p>
+
+      <div class="sg-component-frame">
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>Hero</b>
+            48 / 56 · 800
+            <br>text/hero
+          </div>
+          <div class="type-specimen-sample" style="font-size: 48px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em;">ეგრისის დიდი ომი</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>H1</b>
+            40 / 48 · 700
+            <br>text/h1
+          </div>
+          <div class="type-specimen-sample" style="font-size: 40px; font-weight: 700; line-height: 1.2; letter-spacing: -0.015em;">რიფის ჯადოსნური წრე</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>H2 / Section</b>
+            28 / 36 · 700
+            <br>text/h2
+          </div>
+          <div class="type-specimen-sample" style="font-size: 28px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em;">ახალი დამატებული</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>H3 / Rail title</b>
+            22 / 30 · 700
+            <br>text/h3
+          </div>
+          <div class="type-specimen-sample" style="font-size: 22px; font-weight: 700; line-height: 1.35;">მსგავსი</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>H4</b>
+            18 / 26 · 600
+            <br>text/h4
+          </div>
+          <div class="type-specimen-sample" style="font-size: 18px; font-weight: 600; line-height: 1.4;">ეპიზოდები</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>Body Large</b>
+            16 / 24 · 400
+            <br>text/body-lg
+          </div>
+          <div class="type-specimen-sample" style="font-size: 16px; font-weight: 400; line-height: 1.5;">დოკუმენტური სერიალი გვიამბობს, როგორ შეიქმნა მარჯნის რიფის საოცარი ეკოსისტემა.</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>Body / Card Title</b>
+            14 / 20 · 600
+            <br>text/body
+          </div>
+          <div class="type-specimen-sample" style="font-size: 14px; font-weight: 600; line-height: 1.4;">ეგრისის დიდი ომი | მეორე ნაწილი</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>Caption</b>
+            13 / 18 · 400
+            <br>text/caption
+          </div>
+          <div class="type-specimen-sample" style="font-size: 13px; font-weight: 400; line-height: 1.4; color: var(--color-text-muted);">დოკუმენტური · 2022</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-specimen-meta">
+            <b>Label</b>
+            12 / 16 · 700 · UPPER
+            <br>text/label
+          </div>
+          <div class="type-specimen-sample" style="font-size: 12px; font-weight: 700; line-height: 1.3; letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--font-latin);">LIVE · S1E1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- SPACING ---------- -->
+    <div class="sg-subsection" id="spacing">
+      <h3 class="sg-subsection-title">Spacing Scale</h3>
+      <p class="sg-subsection-note">Based on a 4px / 8px grid. Named by multiplier for predictable rhythm.</p>
+
+      <div class="sg-component-frame">
+        <div class="spacing-grid">
+          <div class="spacing-row"><span class="spacing-token-name">space/1</span><span class="spacing-token-value">4px</span><div class="spacing-bar" style="width: 4px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/2</span><span class="spacing-token-value">8px</span><div class="spacing-bar" style="width: 8px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/3</span><span class="spacing-token-value">12px</span><div class="spacing-bar" style="width: 12px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/4</span><span class="spacing-token-value">16px</span><div class="spacing-bar" style="width: 16px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/5</span><span class="spacing-token-value">20px</span><div class="spacing-bar" style="width: 20px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/6</span><span class="spacing-token-value">24px</span><div class="spacing-bar" style="width: 24px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/8</span><span class="spacing-token-value">32px</span><div class="spacing-bar" style="width: 32px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/10</span><span class="spacing-token-value">40px</span><div class="spacing-bar" style="width: 40px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/12</span><span class="spacing-token-value">48px</span><div class="spacing-bar" style="width: 48px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/16</span><span class="spacing-token-value">64px</span><div class="spacing-bar" style="width: 64px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/20</span><span class="spacing-token-value">80px</span><div class="spacing-bar" style="width: 80px"></div></div>
+          <div class="spacing-row"><span class="spacing-token-name">space/24</span><span class="spacing-token-value">96px</span><div class="spacing-bar" style="width: 96px"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- RADII ---------- -->
+    <div class="sg-subsection" id="radii">
+      <h3 class="sg-subsection-title">Border Radii</h3>
+      <p class="sg-subsection-note">Soft rounding throughout. Pills used for LIVE badges and certain CTAs.</p>
+
+      <div class="sg-component-frame">
+        <div class="radius-grid">
+          <div class="radius-sample" style="border-radius: 4px;"><span class="radius-sample-name">radius/xs</span><span class="radius-sample-value">4px</span></div>
+          <div class="radius-sample" style="border-radius: 6px;"><span class="radius-sample-name">radius/sm</span><span class="radius-sample-value">6px</span></div>
+          <div class="radius-sample" style="border-radius: 8px;"><span class="radius-sample-name">radius/md</span><span class="radius-sample-value">8px</span></div>
+          <div class="radius-sample" style="border-radius: 12px;"><span class="radius-sample-name">radius/lg</span><span class="radius-sample-value">12px</span></div>
+          <div class="radius-sample" style="border-radius: 16px;"><span class="radius-sample-name">radius/xl</span><span class="radius-sample-value">16px</span></div>
+          <div class="radius-sample" style="border-radius: 24px;"><span class="radius-sample-name">radius/2xl</span><span class="radius-sample-value">24px</span></div>
+          <div class="radius-sample" style="border-radius: 999px;"><span class="radius-sample-name">radius/pill</span><span class="radius-sample-value">999px</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- SHADOWS ---------- -->
+    <div class="sg-subsection" id="shadows">
+      <h3 class="sg-subsection-title">Elevation / Shadows</h3>
+      <p class="sg-subsection-note">On dark surfaces, elevation is subtle. Red glow reserved for primary play buttons.</p>
+
+      <div class="sg-component-frame" data-bg="dim">
+        <div class="shadow-grid">
+          <div class="shadow-sample" style="box-shadow: 0 4px 12px rgba(0,0,0,0.32);">
+            <span class="shadow-sample-name">shadow/card</span>
+            <span class="shadow-sample-desc">Default cards</span>
+          </div>
+          <div class="shadow-sample" style="box-shadow: 0 12px 32px rgba(0,0,0,0.56);">
+            <span class="shadow-sample-name">shadow/card-hover</span>
+            <span class="shadow-sample-desc">Hover state</span>
+          </div>
+          <div class="shadow-sample" style="box-shadow: 0 8px 32px rgba(0,0,0,0.48);">
+            <span class="shadow-sample-name">shadow/player</span>
+            <span class="shadow-sample-desc">Video player</span>
+          </div>
+          <div class="shadow-sample" style="box-shadow: 0 24px 64px rgba(0,0,0,0.64);">
+            <span class="shadow-sample-name">shadow/modal</span>
+            <span class="shadow-sample-desc">Modals, sheets</span>
+          </div>
+          <div class="shadow-sample" style="box-shadow: 0 0 24px rgba(207,16,32,0.48); background: #CF1020;">
+            <span class="shadow-sample-name">shadow/red-glow</span>
+            <span class="shadow-sample-desc">Play CTA</span>
+          </div>
+          <div class="shadow-sample" style="box-shadow: 0 0 40px rgba(207,16,32,0.64); background: #CF1020;">
+            <span class="shadow-sample-name">shadow/red-glow-strong</span>
+            <span class="shadow-sample-desc">Active play</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- ICONS ---------- -->
+    <div class="sg-subsection" id="icons">
+      <h3 class="sg-subsection-title">Icon Library</h3>
+      <p class="sg-subsection-note">Extracted directly from the 1TVPlay site. Outline style, 1px stroke, white on dark.</p>
+
+      <div class="sg-component-frame">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#FFF"/><path d="M12 12l4 4" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">search</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><rect x="1" y="4" width="16" height="1" rx="0.5" fill="#FFF"/><rect x="1" y="9" width="16" height="1" rx="0.5" fill="#FFF"/><rect x="1" y="14" width="16" height="1" rx="0.5" fill="#FFF"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">menu</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.5 2 4.5 4 4.5 6.5v3L3 12h12l-1.5-2.5v-3C13.5 4 11.5 2 9 2z" stroke="#FFF" fill="none" stroke-linejoin="round"/><path d="M7.5 14a1.5 1.5 0 003 0" stroke="#FFF"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">bell</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="#FFF"/><path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">user</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#FFF"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">play</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="3" height="12" fill="#FFF"/><rect x="10" y="3" width="3" height="12" fill="#FFF"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">pause</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M4 9l-3-4h6L4 9zm0 0v5M14 9l3-4h-6l3 4zm0 0v5" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">skip 15</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M6 3L2 9l4 6M3 9h8M14 6l3 3-3 3" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">back</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M2 6l4 4l4-4M14 5v8" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">chevron</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M9 2v14M2 9h14" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">add</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M3 3l12 12M15 3L3 15" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">close</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><circle cx="4" cy="9" r="2" stroke="#FFF"/><circle cx="14" cy="4" r="2" stroke="#FFF"/><circle cx="14" cy="14" r="2" stroke="#FFF"/><path d="M6 8l6-3M6 10l6 3" stroke="#FFF"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">share</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="#FFF"/><path d="M9 1v3M9 14v3M1 9h3M14 9h3M3 3l2 2M13 13l2 2M3 15l2-2M13 5l2-2" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">settings</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M2 2h5M2 2v5M16 2h-5M16 2v5M2 16h5M2 16v-5M16 16h-5M16 16v-5" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">fullscreen</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M4 7l-2 2 2 2M2 9h6M9 2v14" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">prev</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M3 3l5 6-5 6M10 3l5 6-5 6" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">forward</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M3 6v6h2l4 4V2L5 6H3z" fill="#FFF"/><path d="M12 6c1.5 1 1.5 5 0 6" stroke="#FFF" stroke-linecap="round"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">volume</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M7 4l5-1v11a2 2 0 11-2-2V5l-3 1v8a2 2 0 11-2-2V4z" stroke="#FFF" stroke-linejoin="round" fill="none"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">cast</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M7 3L3 7l4 4M11 7h4a3 3 0 013 3v5" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">back arrow</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--color-bg-surface); border-radius: 8px;">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M9 1L11.3 6.7L17 7.5L12.5 11.5L14 17L9 14L4 17L5.5 11.5L1 7.5L6.7 6.7L9 1Z" stroke="#FFF" stroke-linejoin="round" fill="none"/></svg>
+            <span style="font-size: 10px; color: var(--color-text-muted); font-family: var(--font-latin);">star</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — DESKTOP COMPONENTS
+       ============================================================ -->
+  <section class="sg-section" id="desktop">
+    <div class="sg-section-header">
+      <h2 class="sg-section-title">
+        <span class="sg-section-number">02</span>
+        Desktop Components
+      </h2>
+      <p class="sg-section-desc">The full component library for the web application. Every component is shown in every state — default, hover, active, disabled — side by side for clean Figma import.</p>
+    </div>
+
+    <!-- ---------- LOGO ---------- -->
+    <div class="sg-subsection" id="logo">
+      <h3 class="sg-subsection-title">Logo</h3>
+      <p class="sg-subsection-note">The 1TVPlay mark paired with "1TVPLAY" wordmark. Mark-only variant used in small spaces.</p>
+
+      <div class="sg-component-frame">
+        <div class="sg-states-row" style="align-items: center;">
+          <div class="sg-state">
+            <span class="sg-state-label">Full lockup</span>
+            <a class="tv-logo" href="#">
+              <svg class="tv-logo-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                <path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/>
+              </svg>
+              <span class="tv-logo-wordmark">1TVPLAY</span>
+            </a>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Mark only</span>
+            <svg class="tv-logo-mark" style="width: 40px; height: 40px;" viewBox="0 0 30 30">
+              <path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/>
+            </svg>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Large</span>
+            <a class="tv-logo" href="#">
+              <svg class="tv-logo-mark" style="width: 48px; height: 48px;" viewBox="0 0 30 30">
+                <path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/>
+              </svg>
+              <span class="tv-logo-wordmark" style="font-size: 22px;">1TVPLAY</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- BUTTONS ---------- -->
+    <div class="sg-subsection" id="buttons">
+      <h3 class="sg-subsection-title">Buttons</h3>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">btn/primary</span>
+        <div class="sg-states-row">
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <button class="tv-btn tv-btn-primary">ცვლილებების დამახსოვრება</button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Hover</span>
+            <button class="tv-btn tv-btn-primary" style="background: var(--color-brand-red-hover);">ცვლილებების დამახსოვრება</button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Pressed</span>
+            <button class="tv-btn tv-btn-primary" style="background: var(--color-brand-red-pressed);">ცვლილებების დამახსოვრება</button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Disabled</span>
+            <button class="tv-btn tv-btn-primary" disabled>ცვლილებების დამახსოვრება</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">btn/secondary</span>
+        <div class="sg-states-row">
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <button class="tv-btn tv-btn-secondary">მეტის ნახვა</button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Hover</span>
+            <button class="tv-btn tv-btn-secondary" style="background: rgba(255,255,255,0.06); border-color: var(--color-border-strong);">მეტის ნახვა</button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">With icon</span>
+            <button class="tv-btn tv-btn-secondary">
+              მეტის ნახვა
+              <svg class="tv-icon-sm" viewBox="0 0 18 18" fill="none"><path d="M2 6l4 4 4-4" stroke="#FFF" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">btn/sizes</span>
+        <div class="sg-states-row" style="align-items: center;">
+          <div class="sg-state">
+            <span class="sg-state-label">Large</span>
+            <button class="tv-btn tv-btn-primary tv-btn-large">Primary Large</button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <button class="tv-btn tv-btn-primary">Primary Default</button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Small</span>
+            <button class="tv-btn tv-btn-primary tv-btn-small">Primary Small</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">btn/icon</span>
+        <div class="sg-states-row" style="align-items: center;">
+          <div class="sg-state">
+            <span class="sg-state-label">Icon only</span>
+            <button class="tv-btn-icon-only">
+              <svg class="tv-icon" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#FFF"/><path d="M12 12l4 4" stroke="#FFF" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Round</span>
+            <button class="tv-btn-round">
+              <svg class="tv-icon" viewBox="0 0 18 18" fill="none"><path d="M6 3L2 9l4 6" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Play circle</span>
+            <button class="tv-btn-play-circle">
+              <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#FFF"/></svg>
+            </button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Play square</span>
+            <button class="tv-btn-play-square">
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#FFF"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- BADGES ---------- -->
+    <div class="sg-subsection" id="badges">
+      <h3 class="sg-subsection-title">Badges</h3>
+      <p class="sg-subsection-note">LIVE indicator is the highest-visibility element. IMDB rating and age rating use different visual weights.</p>
+
+      <div class="sg-component-frame">
+        <div class="sg-states-row" style="align-items: center;">
+          <div class="sg-state">
+            <span class="sg-state-label">LIVE</span>
+            <span class="tv-badge tv-badge-live">LIVE</span>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">LIVE + play</span>
+            <span class="tv-badge-live-pill">
+              LIVE
+              <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#FFF" stroke-width="1.5"/><path d="M7 6l5 3-5 3V6z" fill="#FFF"/></svg>
+            </span>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">IMDB rating</span>
+            <div style="display: flex; align-items: center; gap: 8px; font-family: var(--font-latin); font-size: 13px; color: var(--color-text-primary);">
+              <span class="tv-badge tv-badge-imdb">IMDb</span>
+              <span style="font-weight: 700;">8.0</span>
+              <span style="color: var(--color-text-muted);">(16)</span>
+            </div>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Year</span>
+            <span class="tv-badge tv-badge-year">2022</span>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Age rating</span>
+            <span class="tv-badge tv-badge-age">U</span>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Quality</span>
+            <button class="tv-player-quality-badge">4K</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- INPUTS ---------- -->
+    <div class="sg-subsection" id="inputs">
+      <h3 class="sg-subsection-title">Form Inputs</h3>
+      <p class="sg-subsection-note">Floating-label pattern used throughout account pages. Red focus ring consistent with brand.</p>
+
+      <div class="sg-component-frame">
+        <div class="sg-states-row">
+          <div class="sg-state" style="flex: 1; min-width: 280px;">
+            <span class="sg-state-label">Default (empty)</span>
+            <div class="tv-input-field">
+              <label class="tv-input-label">სახელი, გვარი</label>
+              <input class="tv-input" type="text" placeholder="">
+            </div>
+          </div>
+          <div class="sg-state" style="flex: 1; min-width: 280px;">
+            <span class="sg-state-label">Filled</span>
+            <div class="tv-input-field filled">
+              <label class="tv-input-label">სახელი, გვარი</label>
+              <input class="tv-input" type="text" value="Testers Testers">
+            </div>
+          </div>
+          <div class="sg-state" style="flex: 1; min-width: 280px;">
+            <span class="sg-state-label">Focused</span>
+            <div class="tv-input-field filled" style="--focus: 1;">
+              <label class="tv-input-label" style="color: var(--color-text-secondary);">ელ-ფოსტა</label>
+              <input class="tv-input" type="email" value="Testers@1tv.ge" style="border-color: var(--color-brand-red); box-shadow: 0 0 0 3px var(--color-brand-red-soft);">
+            </div>
+          </div>
+          <div class="sg-state" style="flex: 1; min-width: 280px;">
+            <span class="sg-state-label">Disabled</span>
+            <div class="tv-input-field">
+              <label class="tv-input-label">ელ-ფოსტა</label>
+              <input class="tv-input" type="email" disabled placeholder="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">select / dropdown</span>
+        <div class="sg-states-row">
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <button class="tv-select">
+              <span class="tv-select-placeholder">ჟანრი</span>
+              <svg class="tv-icon-sm" viewBox="0 0 18 18" fill="none"><path d="M2 6l4 4 4-4" stroke="#FFF" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Small</span>
+            <button class="tv-select" style="min-width: 100px; padding: 12px 16px;">
+              <span>წელი</span>
+            </button>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Selected</span>
+            <button class="tv-select" style="border-color: var(--color-border-strong);">
+              <span>დოკუმენტური</span>
+              <svg class="tv-icon-sm" viewBox="0 0 18 18" fill="none"><path d="M2 6l4 4 4-4" stroke="#FFF" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">search / input</span>
+        <div class="sg-states-row">
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <div class="tv-search-input">
+              <svg class="tv-icon-sm" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#FFF"/><path d="M12 12l4 4" stroke="#FFF" stroke-linecap="round"/></svg>
+              <input type="text" placeholder="ძებნა...">
+            </div>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Filled</span>
+            <div class="tv-search-input">
+              <svg class="tv-icon-sm" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#FFF"/><path d="M12 12l4 4" stroke="#FFF" stroke-linecap="round"/></svg>
+              <input type="text" value="რიფის ჯადოსნური">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- NAVIGATION ---------- -->
+    <div class="sg-subsection" id="nav">
+      <h3 class="sg-subsection-title">Top Navigation</h3>
+      <p class="sg-subsection-note">Two-level nav: utility row (brand lockup, LIVE, lang) + main row (logo, primary links, search).</p>
+
+      <div class="sg-component-frame" style="padding: 0; overflow: hidden;">
+        <span class="sg-component-label">nav/full</span>
+        <nav class="tv-nav-top" style="margin-top: 24px;">
+          <div class="tv-nav-top-utility">
+            <div class="tv-nav-top-brands">
+              <svg style="width: 30px; height: 30px;" viewBox="0 0 30 30"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/></svg>
+              <span class="tv-logo-divider"></span>
+              <svg style="width: 24px; height: 24px;" viewBox="0 0 30 30"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#8B1020"/></svg>
+              <span class="tv-logo-divider"></span>
+              <div class="tv-eurovision-lockup">
+                <div class="tv-eurovision-icon"></div>
+                <span>EUROVISION<br>SPORT</span>
+              </div>
+            </div>
+            <div class="tv-nav-top-actions">
+              <span class="tv-badge-live-pill">
+                LIVE
+                <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#FFF" stroke-width="1.5"/><path d="M7 6l5 3-5 3V6z" fill="#FFF"/></svg>
+              </span>
+              <button class="tv-user-chip">
+                <span class="tv-user-avatar">
+                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="#FFF"/><path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#FFF" stroke-linecap="round"/></svg>
+                </span>
+                <span>Testers Te...</span>
+                <svg class="tv-icon-sm" style="width: 12px; height: 12px; opacity: 0.6;" viewBox="0 0 18 18" fill="none"><path d="M2 6l4 4 4-4" stroke="#FFF" stroke-linecap="round"/></svg>
+              </button>
+              <button class="tv-btn-icon-only">
+                <svg class="tv-icon" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.5 2 4.5 4 4.5 6.5v3L3 12h12l-1.5-2.5v-3C13.5 4 11.5 2 9 2z" stroke="#FFF" fill="none" stroke-linejoin="round"/><path d="M7.5 14a1.5 1.5 0 003 0" stroke="#FFF"/></svg>
+              </button>
+              <button class="tv-lang-switch">GE</button>
+            </div>
+          </div>
+          <div class="tv-nav-top-main">
+            <a class="tv-logo" href="#">
+              <svg class="tv-logo-mark" viewBox="0 0 30 30">
+                <path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/>
+              </svg>
+              <span class="tv-logo-wordmark">1TVPLAY</span>
+            </a>
+            <div class="tv-nav-links">
+              <a class="tv-nav-link" href="#">ფილმები</a>
+              <a class="tv-nav-link" href="#">სერიალები</a>
+              <a class="tv-nav-link" href="#">გადაცემები</a>
+              <button class="tv-btn-icon-only" style="margin-left: 12px;">
+                <svg class="tv-icon" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#FFF"/><path d="M12 12l4 4" stroke="#FFF" stroke-linecap="round"/></svg>
+              </button>
+              <button class="tv-btn-icon-only">
+                <svg class="tv-icon" viewBox="0 0 18 18" fill="none"><path d="M3 12l6-6 6 6" stroke="#FFF" stroke-linecap="round" fill="none"/></svg>
+              </button>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div style="margin-top: 32px;" class="sg-component-frame">
+        <span class="sg-component-label">nav-link / states</span>
+        <div class="sg-states-row" style="align-items: center; padding: 16px 0;">
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <a class="tv-nav-link" href="#">ფილმები</a>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Hover</span>
+            <a class="tv-nav-link" href="#" style="color: var(--color-brand-red);">სერიალები</a>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Active</span>
+            <a class="tv-nav-link tv-nav-link-active" href="#">გადაცემები</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- CONTENT CARDS ---------- -->
+    <div class="sg-subsection" id="cards">
+      <h3 class="sg-subsection-title">Content Cards</h3>
+      <p class="sg-subsection-note">Three primary aspect ratios: 16:9 landscape (movies, shows), 2:3 portrait (series), and 1:1 square (promoted). All show hover state with play overlay and lift shadow.</p>
+
+      <!-- Landscape cards -->
+      <div class="sg-component-frame">
+        <span class="sg-component-label">card/landscape · 16:9</span>
+        <div class="sg-states-row" style="gap: 20px;">
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <div class="tv-card tv-card-landscape" style="width: 240px;">
+              <div class="tv-card-media">
+                <div class="tv-placeholder-img" style="background: linear-gradient(135deg, #3A0A0F 0%, #8B1020 40%, #2A0305 100%); display: flex; align-items: flex-end; justify-content: center; color: #CF1020; font-weight: 800; font-size: 18px; letter-spacing: 0.04em; text-shadow: 0 2px 8px rgba(0,0,0,0.8); padding-bottom: 16px;">ეგრისის დიდი ომი</div>
+              </div>
+              <div class="tv-card-body">
+                <div class="tv-card-title">ეგრისის დიდი ომი | მეორე ნაწილი</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-state">
+            <span class="sg-state-label">Hover (play overlay)</span>
+            <div class="tv-card tv-card-landscape" style="width: 240px;">
+              <div class="tv-card-media" style="box-shadow: var(--shadow-card-hover); transform: translateY(-4px);">
+                <div class="tv-placeholder-img" style="background: linear-gradient(135deg, #0A2A4A 0%, #1A4A7A 100%);"></div>
+                <div class="tv-card-overlay" style="opacity: 1;">
+                  <div class="tv-card-play-overlay">
+                    <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#FFF"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="tv-card-body">
+                <div class="tv-card-title">შენ შეგიძლია მოიგო ასი ათასი | გადაცემა IV</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-state">
+            <span class="sg-state-label">With episode label</span>
+            <div class="tv-card tv-card-landscape" style="width: 240px;">
+              <div class="tv-card-media">
+                <div class="tv-placeholder-img" style="background: linear-gradient(135deg, #1a3a5a 0%, #0a1a2a 100%);"></div>
+                <div class="tv-card-episode-label">S1E1</div>
+              </div>
+              <div class="tv-card-body">
+                <div class="tv-card-title">რიფის ჯადოსნური წრე</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-state">
+            <span class="sg-state-label">With progress</span>
+            <div class="tv-card tv-card-landscape" style="width: 240px;">
+              <div class="tv-card-media">
+                <div class="tv-placeholder-img" style="background: linear-gradient(135deg, #2a1a0a 0%, #4a3a2a 100%);"></div>
+                <div class="tv-card-progress">
+                  <div class="tv-card-progress-bar" style="width: 68%;"></div>
+                </div>
+              </div>
+              <div class="tv-card-body">
+                <div class="tv-card-title">დიდი კინო | რობერტ ფლაერტი</div>
+                <div class="tv-card-meta">დოკუმენტური</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portrait cards -->
+      <div class="sg-component-frame">
+        <span class="sg-component-label">card/portrait · 2:3</span>
+        <div class="sg-states-row" style="gap: 20px;">
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <div class="tv-card tv-card-portrait" style="width: 180px;">
+              <div class="tv-card-media">
+                <div class="tv-placeholder-img" style="background: linear-gradient(180deg, #d4c8a0 0%, #a89568 50%, #4a3d20 100%); position: relative;">
+                  <div style="position: absolute; top: 20%; left: 0; right: 0; text-align: center; font-family: serif; font-size: 18px; color: #5a2a0a; font-style: italic;">Le temps<br>des paysans</div>
+                </div>
+              </div>
+              <div class="tv-card-body">
+                <div class="tv-card-title">გლეხების დრო</div>
+                <div class="tv-card-meta">დოკუმენტური</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-state">
+            <span class="sg-state-label">Hover</span>
+            <div class="tv-card tv-card-portrait" style="width: 180px;">
+              <div class="tv-card-media" style="box-shadow: var(--shadow-card-hover); transform: translateY(-4px);">
+                <div class="tv-placeholder-img" style="background: linear-gradient(180deg, #2a3a6a 0%, #5a6a8a 100%);"></div>
+                <div class="tv-card-overlay" style="opacity: 1;">
+                  <div class="tv-card-play-overlay">
+                    <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#FFF"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="tv-card-body">
+                <div class="tv-card-title">ექვსი ქალი</div>
+                <div class="tv-card-meta">თრილერი</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-state">
+            <span class="sg-state-label">Dark poster</span>
+            <div class="tv-card tv-card-portrait" style="width: 180px;">
+              <div class="tv-card-media">
+                <div class="tv-placeholder-img" style="background: radial-gradient(ellipse at top, #0a2a4a 0%, #000 100%); position: relative;">
+                  <div style="position: absolute; top: 40%; left: 0; right: 0; text-align: center; font-family: sans-serif; font-size: 14px; color: #FFF; letter-spacing: 0.08em;">The Magic<br><span style="font-size: 20px; font-weight: 700;">CIRCLE</span><br><span style="font-size: 10px; opacity: 0.8;">of the reef</span></div>
+                </div>
+              </div>
+              <div class="tv-card-body">
+                <div class="tv-card-title">რიფის ჯადოსნური წრე</div>
+                <div class="tv-card-meta">დოკუმენტური</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-state">
+            <span class="sg-state-label">Branded</span>
+            <div class="tv-card tv-card-portrait" style="width: 180px;">
+              <div class="tv-card-media">
+                <div class="tv-placeholder-img" style="background: linear-gradient(135deg, #8B5A3C 0%, #E07A3A 100%); position: relative;">
+                  <div style="position: absolute; top: 35%; right: 8px; color: #FFF; font-weight: 900; font-size: 22px; line-height: 1; text-align: right;">FACE<br>à<br>FACE</div>
+                </div>
+              </div>
+              <div class="tv-card-body">
+                <div class="tv-card-title">სახე სახის</div>
+                <div class="tv-card-meta">დრამა</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- HERO ---------- -->
+    <div class="sg-subsection" id="hero">
+      <h3 class="sg-subsection-title">Hero Banner</h3>
+      <p class="sg-subsection-note">Full-bleed content hero with left-anchored text. Gradient darkens the left side for readability.</p>
+
+      <div class="sg-component-frame" style="padding: 24px;">
+        <span class="sg-component-label">hero/full</span>
+        <div class="tv-hero" style="margin-top: 16px;">
+          <div class="tv-hero-bg" style="background: linear-gradient(135deg, #3A0A0F 0%, #8B1020 30%, #6A1020 60%, #1A0205 100%);"></div>
+          <div class="tv-hero-gradient"></div>
+          <div class="tv-hero-content">
+            <div class="tv-hero-meta-row">
+              <span class="tv-badge tv-badge-year">2022</span>
+              <span style="color: var(--color-text-primary); font-family: var(--font-latin); font-size: 13px; display: flex; align-items: center; gap: 8px;"><span class="tv-badge tv-badge-imdb">IMDb</span><b style="font-weight: 700;">8.0</b> <span style="color: var(--color-text-muted);">(16)</span></span>
+              <span class="tv-badge tv-badge-age">U</span>
+            </div>
+            <h1 class="tv-hero-title">რიფის ჯადოსნური წრე</h1>
+            <p class="tv-hero-description">დოკუმენტური სერიალი გვიამბობს, როგორ შეიქმნა მარჯნის რიფის საოცარი ეკოსისტემა, რომელსაც პლანეტის კლიმატურ ცვლილებებთან გამკლავება შეუძლია.</p>
+            <div class="tv-hero-actions">
+              <button class="tv-btn tv-btn-primary tv-btn-large">
+                <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#FFF"/></svg>
+                ყურება
+              </button>
+              <button class="tv-btn tv-btn-secondary tv-btn-large">
+                მეტის ნახვა
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <div class="tv-carousel-dots">
+            <button class="tv-carousel-dot tv-carousel-dot-active"></button>
+            <button class="tv-carousel-dot"></button>
+            <button class="tv-carousel-dot"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- RAILS ---------- -->
+    <div class="sg-subsection" id="rails">
+      <h3 class="sg-subsection-title">Content Rails</h3>
+      <p class="sg-subsection-note">Horizontal scrolling rows with section title and "see all" arrow. Section title is clickable.</p>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">rail/landscape</span>
+        <div class="tv-rail" style="margin-top: 16px;">
+          <div class="tv-rail-header">
+            <a class="tv-rail-title tv-rail-title-link" href="#">
+              ახალი დამატებული
+              <span class="tv-rail-see-all"><span class="tv-rail-arrow"></span></span>
+            </a>
+            <div class="tv-rail-controls">
+              <button class="tv-rail-arrow-btn">
+                <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              </button>
+              <button class="tv-rail-arrow-btn">
+                <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M7 3l6 6-6 6" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="tv-rail-track">
+            <div class="tv-card tv-card-landscape">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #3A0A0F 0%, #8B1020 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">ეგრისის დიდი ომი | მეორე ნაწილი</div></div>
+            </div>
+            <div class="tv-card tv-card-landscape">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #0A2A4A 0%, #1A4A7A 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">შენ შეგიძლია მოიგო ასი ათასი | გადაცემა IV</div></div>
+            </div>
+            <div class="tv-card tv-card-landscape">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #2a1a0a 0%, #4a3a2a 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">დიდი კინო | რობერტ ფლაერტი</div></div>
+            </div>
+            <div class="tv-card tv-card-landscape">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #1A1A2A 0%, #3A3A5A 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">მაუწყებლობის 100 წელი</div></div>
+            </div>
+            <div class="tv-card tv-card-landscape">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #4A1A2A 0%, #1A0A1A 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">პოლარული დათვი</div></div>
+            </div>
+            <div class="tv-card tv-card-landscape">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #2A3A4A 0%, #5A6A7A 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">ახალწვეულნი</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">rail/portrait</span>
+        <div class="tv-rail" style="margin-top: 16px;">
+          <div class="tv-rail-header">
+            <a class="tv-rail-title tv-rail-title-link" href="#">
+              სერიალები
+              <span class="tv-rail-see-all"><span class="tv-rail-arrow"></span></span>
+            </a>
+          </div>
+          <div class="tv-rail-track tv-rail-track-portrait">
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(180deg, #d4c8a0 0%, #4a3d20 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">გლეხების დრო</div><div class="tv-card-meta">დოკუმენტური</div></div>
+            </div>
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(180deg, #2a3a6a 0%, #5a6a8a 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">ექვსი ქალი</div><div class="tv-card-meta">თრილერი</div></div>
+            </div>
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: radial-gradient(ellipse at top, #0a2a4a 0%, #000 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">რიფის ჯადოსნური წრე</div><div class="tv-card-meta">დოკუმენტური</div></div>
+            </div>
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #8B5A3C 0%, #E07A3A 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">სახე სახის</div><div class="tv-card-meta">დრამა</div></div>
+            </div>
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #1a2a3a 0%, #3a5a7a 100%);"></div></div>
+              <div class="tv-card-body"><div class="tv-card-title">დაკარგული წერილები</div><div class="tv-card-meta">სერიალი</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- VIDEO PLAYER ---------- -->
+    <div class="sg-subsection" id="player">
+      <h3 class="sg-subsection-title">Video Player</h3>
+      <p class="sg-subsection-note">Full desktop player with top bar (back, title, link), centered playback area, and bottom bar (scrubber, time, controls, settings, 4K, fullscreen).</p>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">player/desktop</span>
+        <div class="tv-player" style="margin-top: 16px;">
+          <div class="tv-player-frame">
+            <div class="tv-player-topbar">
+              <button class="tv-player-back">
+                <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              </button>
+              <div class="tv-player-title">ეგრისის დიდი ომი | მეორე ნაწილი</div>
+              <button class="tv-player-back">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 11l4-4m0 0L14 4M11 7h-4a3 3 0 00-3 3v2" stroke="#FFF" stroke-linecap="round" fill="none"/></svg>
+              </button>
+            </div>
+            <div class="tv-player-content">
+              <div style="background: radial-gradient(circle, #CF1020 0%, transparent 70%); width: 200px; height: 200px; opacity: 0.3; position: absolute;"></div>
+              <div style="position: relative; z-index: 2; text-align: center;">
+                <div style="width: 120px; height: 120px; background: #0A0205; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 0 60px rgba(207,16,32,0.6); margin-bottom: 24px;">
+                  <svg style="width: 64px; height: 64px;" viewBox="0 0 30 30">
+                    <path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/>
+                  </svg>
+                </div>
+                <div style="color: #FFF; font-weight: 300; letter-spacing: 0.2em; font-size: 18px;">პირველი არხი</div>
+              </div>
+            </div>
+            <div class="tv-player-bottombar">
+              <div class="tv-player-time">
+                <span>00:00:12 / 01:11:13</span>
+              </div>
+              <div class="tv-player-progress">
+                <div class="tv-player-progress-fill" style="width: 1%;"></div>
+                <div class="tv-player-progress-handle" style="left: 1%;"></div>
+              </div>
+              <div class="tv-player-controls">
+                <div class="tv-player-controls-left">
+                  <button class="tv-btn-round" style="width: 36px; height: 36px;">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 6v6h2l4 4V2L5 6H3z" fill="#FFF"/><path d="M12 6c1.5 1 1.5 5 0 6" stroke="#FFF" stroke-linecap="round"/></svg>
+                  </button>
+                  <div class="tv-player-volume-bar">
+                    <div class="tv-player-volume-fill"></div>
+                  </div>
+                </div>
+                <div class="tv-player-controls-center">
+                  <button class="tv-btn-round" style="width: 40px; height: 40px;">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 3l-2 6 2 6M2 9h8" stroke="#FFF" stroke-linecap="round" fill="none"/><text x="9" y="12" font-size="8" font-family="Arial" fill="#FFF" font-weight="700">15</text></svg>
+                  </button>
+                  <button class="tv-btn-play-square">
+                    <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#FFF"/></svg>
+                  </button>
+                  <button class="tv-btn-round" style="width: 40px; height: 40px;">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M14 3l2 6-2 6M8 9h8" stroke="#FFF" stroke-linecap="round" fill="none"/><text x="3" y="12" font-size="8" font-family="Arial" fill="#FFF" font-weight="700">15</text></svg>
+                  </button>
+                </div>
+                <div class="tv-player-controls-right">
+                  <button class="tv-btn-round" style="width: 36px; height: 36px;">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="#FFF"/><path d="M9 1v3M9 14v3M1 9h3M14 9h3M3 3l2 2M13 13l2 2M3 15l2-2M13 5l2-2" stroke="#FFF" stroke-linecap="round"/></svg>
+                  </button>
+                  <button class="tv-player-quality-badge">4K</button>
+                  <button class="tv-btn-round" style="width: 36px; height: 36px;">
+                    <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M2 2h5M2 2v5M16 2h-5M16 2v5M2 16h5M2 16v-5M16 16h-5M16 16v-5" stroke="#FFF" stroke-linecap="round"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">player/scrubber — states</span>
+        <div class="sg-states-row" style="flex-direction: column; gap: 20px; align-items: stretch;">
+          <div class="sg-state" style="width: 100%;">
+            <span class="sg-state-label">0% — start</span>
+            <div class="tv-player-progress">
+              <div class="tv-player-progress-fill" style="width: 0%;"></div>
+              <div class="tv-player-progress-handle" style="left: 0%;"></div>
+            </div>
+          </div>
+          <div class="sg-state" style="width: 100%;">
+            <span class="sg-state-label">35% — mid</span>
+            <div class="tv-player-progress">
+              <div class="tv-player-progress-fill" style="width: 35%;"></div>
+              <div class="tv-player-progress-handle" style="left: 35%;"></div>
+            </div>
+          </div>
+          <div class="sg-state" style="width: 100%;">
+            <span class="sg-state-label">92% — near end</span>
+            <div class="tv-player-progress">
+              <div class="tv-player-progress-fill" style="width: 92%;"></div>
+              <div class="tv-player-progress-handle" style="left: 92%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- TABS ---------- -->
+    <div class="sg-subsection" id="tabs">
+      <h3 class="sg-subsection-title">Tabs</h3>
+      <p class="sg-subsection-note">Two tab variants: underline tabs (account pages) and pill tabs (detail page section toggles).</p>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">tabs/underline</span>
+        <div class="tv-tabs" style="margin-top: 16px;">
+          <button class="tv-tab">ნახე მოგვიანებით</button>
+          <button class="tv-tab">ფლეილისტები</button>
+          <button class="tv-tab">გამოწერილი</button>
+          <button class="tv-tab">ისტორია</button>
+          <button class="tv-tab tv-tab-active">ჩემი ანგარიში</button>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">tabs/pill</span>
+        <div class="sg-states-row" style="margin-top: 16px; gap: 32px;">
+          <div class="sg-state">
+            <span class="sg-state-label">Default</span>
+            <div class="tv-pill-tabs">
+              <button class="tv-pill-tab tv-pill-tab-active">ეპიზოდები</button>
+              <button class="tv-pill-tab">მიმოხილვა</button>
+            </div>
+          </div>
+          <div class="sg-state">
+            <span class="sg-state-label">Reversed</span>
+            <div class="tv-pill-tabs">
+              <button class="tv-pill-tab">ეპიზოდები</button>
+              <button class="tv-pill-tab tv-pill-tab-active">მიმოხილვა</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">tab/episode-row · with active red underline</span>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; max-width: 800px;">
+          <div class="tv-card tv-card-landscape tv-card-episode tv-card-episode-active">
+            <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #0a3a5a 0%, #1a5a8a 100%);"></div></div>
+            <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">S1E1 | რიფის ჯადოსნური წრე</div></div>
+          </div>
+          <div class="tv-card tv-card-landscape tv-card-episode">
+            <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #8B3A5A 0%, #B05A7A 100%);"></div></div>
+            <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">S1E2 | რიფის ჯადოსნური წრე</div></div>
+          </div>
+          <div class="tv-card tv-card-landscape tv-card-episode">
+            <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #4a7a3a 0%, #6a9a5a 100%);"></div></div>
+            <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">S1E3 | რიფის ჯადოსნური წრე</div></div>
+          </div>
+          <div class="tv-card tv-card-landscape tv-card-episode">
+            <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #2a5a7a 0%, #4a7a9a 100%);"></div></div>
+            <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">S1E4 | რიფის ჯადოსნური წრე</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- SIDEBAR ---------- -->
+    <div class="sg-subsection" id="sidebar">
+      <h3 class="sg-subsection-title">Sidebar Navigation</h3>
+      <p class="sg-subsection-note">Used in account settings. Chevron indicates deeper navigation. Active item has elevated surface.</p>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">sidebar/account</span>
+        <div style="margin-top: 16px; display: flex; gap: 32px; align-items: flex-start;">
+          <div class="tv-sidebar">
+            <button class="tv-sidebar-item tv-sidebar-item-active">
+              პირადი სივრცე
+              <span class="tv-sidebar-chevron"></span>
+            </button>
+            <button class="tv-sidebar-item">
+              ჩემი ანგარიში
+              <span class="tv-sidebar-chevron"></span>
+            </button>
+            <button class="tv-sidebar-item">
+              სხვა პარამეტრები
+              <span class="tv-sidebar-chevron"></span>
+            </button>
+          </div>
+
+          <div style="flex: 1; max-width: 360px; display: flex; flex-direction: column; gap: 16px;">
+            <div class="tv-input-field filled">
+              <label class="tv-input-label">სახელი, გვარი</label>
+              <input class="tv-input" type="text" value="Testers Testers">
+            </div>
+            <div class="tv-input-field filled">
+              <label class="tv-input-label">ელ-ფოსტა</label>
+              <input class="tv-input" type="email" value="Testers@1tv.ge">
+            </div>
+            <button class="tv-btn tv-btn-primary" style="padding: 16px; font-size: 15px; align-self: stretch;">ცვლილებების დამახსოვრება</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- FOOTER ---------- -->
+    <div class="sg-subsection" id="footer">
+      <h3 class="sg-subsection-title">Footer</h3>
+      <p class="sg-subsection-note">Distinctive diagonal red accent in bottom-right. Links on left, social icons on right, partner logo strip below.</p>
+
+      <div class="sg-component-frame" style="padding: 0; overflow: hidden;">
+        <span class="sg-component-label">footer/full</span>
+        <div style="margin-top: 24px;">
+          <footer class="tv-footer">
+            <div class="tv-footer-graphic"></div>
+            <div class="tv-footer-main">
+              <a class="tv-logo" href="#">
+                <svg class="tv-logo-mark" viewBox="0 0 30 30"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/></svg>
+                <span class="tv-logo-wordmark">1TVPLAY</span>
+              </a>
+              <div class="tv-footer-links">
+                <a class="tv-footer-link" href="#">ფილმები</a>
+                <a class="tv-footer-link" href="#">სერიალები</a>
+                <a class="tv-footer-link" href="#">გადაცემები</a>
+                <a class="tv-footer-link" href="#">Data Removal Form</a>
+              </div>
+              <div class="tv-footer-socials">
+                <a class="tv-social-link" href="#">
+                  <svg width="24" height="24" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="15" fill="#FFF" opacity="0.08"/><path d="M15 8c-3.87 0-7 3.13-7 7 0 3.5 2.56 6.4 5.91 6.91v-4.89h-1.78V15h1.78v-1.5c0-1.77 1.07-2.75 2.67-2.75.76 0 1.56.14 1.56.14v1.72h-.88c-.87 0-1.14.54-1.14 1.09V15h1.93l-.31 2.02h-1.62v4.89C19.44 21.4 22 18.5 22 15c0-3.87-3.13-7-7-7z" fill="#FFF"/></svg>
+                </a>
+                <a class="tv-social-link" href="#">
+                  <svg width="24" height="24" viewBox="0 0 30 30" fill="none"><rect x="6" y="6" width="18" height="18" rx="5" stroke="#FFF" fill="none"/><circle cx="15" cy="15" r="4" stroke="#FFF" fill="none"/><circle cx="20" cy="10" r="1" fill="#FFF"/></svg>
+                </a>
+                <a class="tv-social-link" href="#">
+                  <svg width="24" height="24" viewBox="0 0 30 30" fill="none"><path d="M18 7v9a3 3 0 11-3-3" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M18 11c1.5 1 3 1 4 0" stroke="#FFF" stroke-width="1.5" fill="none"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="tv-partner-strip">
+              <span class="tv-partner-logo">BBC</span>
+              <span class="tv-partner-logo">BBC STUDIOS</span>
+              <span class="tv-partner-logo">arte</span>
+              <span class="tv-partner-logo">Rai</span>
+              <span class="tv-partner-logo" style="font-family: 'Brush Script MT', cursive; text-transform: none; letter-spacing: 0;">Walt Disney</span>
+              <span class="tv-partner-logo">PARAMOUNT</span>
+              <span class="tv-partner-logo">FIBA</span>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — MOBILE COMPONENTS
+       ============================================================ -->
+  <section class="sg-section" id="mobile">
+    <div class="sg-section-header">
+      <h2 class="sg-section-title">
+        <span class="sg-section-number">03</span>
+        Mobile Components
+      </h2>
+      <p class="sg-section-desc">Native mobile app components. The bottom tab bar with its signature curved red accent is the most distinctive element in the entire system.</p>
+    </div>
+
+    <!-- ---------- MOBILE STATUS + TOP NAV ---------- -->
+    <div class="sg-subsection" id="mobile-nav">
+      <h3 class="sg-subsection-title">Status Bar & Top Nav</h3>
+      <p class="sg-subsection-note">Full-width top area: iOS status bar + branded nav with logo, LIVE channel pills, search, and bell.</p>
+
+      <div class="sg-component-frame" style="display: flex; justify-content: center; background: #05080C;">
+        <span class="sg-component-label">mobile/topnav</span>
+        <div style="width: 390px; background: var(--color-bg-page); border-radius: 20px; overflow: hidden; border: 1px solid var(--color-border-subtle);">
+          <div class="tv-mobile-statusbar">
+            <span>12:36</span>
+            <div class="tv-mobile-statusbar-icons">
+              <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="7" width="3" height="4" rx="1" fill="#FFF"/><rect x="4" y="5" width="3" height="6" rx="1" fill="#FFF"/><rect x="8" y="3" width="3" height="8" rx="1" fill="#FFF"/><rect x="12" y="1" width="3" height="10" rx="1" fill="#FFF"/></svg>
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 11.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM3.5 7.5c1-1 2.8-2 4.5-2s3.5 1 4.5 2M1 5c1.8-2 4.3-3 7-3s5.2 1 7 3" stroke="#FFF" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
+              <div class="tv-mobile-battery">48</div>
+            </div>
+          </div>
+          <div class="tv-mobile-topnav">
+            <div class="tv-mobile-topnav-brands">
+              <a class="tv-logo" href="#" style="gap: 6px;">
+                <svg class="tv-logo-mark" style="width: 22px; height: 22px;" viewBox="0 0 30 30"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/></svg>
+                <span class="tv-logo-divider" style="height: 14px;"></span>
+                <span class="tv-logo-wordmark" style="font-size: 14px;">1TVPLAY</span>
+              </a>
+            </div>
+            <div style="display: flex; gap: 4px;">
+              <div class="tv-mobile-live-pill">
+                <span style="position: absolute; top: 3px; left: 4px; font-size: 8px;">LIVE</span>
+                <svg width="12" height="14" viewBox="0 0 30 30" style="opacity: 0.6;"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#FFF"/></svg>
+              </div>
+              <div class="tv-mobile-live-pill">
+                <span style="position: absolute; top: 3px; left: 4px; font-size: 8px;">LIVE</span>
+                <svg width="12" height="14" viewBox="0 0 30 30" style="opacity: 0.4;"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#FFF"/></svg>
+              </div>
+              <button class="tv-mobile-iconbtn">
+                <svg class="tv-icon" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#FFF"/><path d="M12 12l4 4" stroke="#FFF" stroke-linecap="round"/></svg>
+              </button>
+              <button class="tv-mobile-iconbtn">
+                <svg class="tv-icon" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.5 2 4.5 4 4.5 6.5v3L3 12h12l-1.5-2.5v-3C13.5 4 11.5 2 9 2z" stroke="#FFF" fill="none" stroke-linejoin="round"/><path d="M7.5 14a1.5 1.5 0 003 0" stroke="#FFF"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">mobile/page-title</span>
+        <div style="display: flex; gap: 32px; margin-top: 16px; justify-content: center;">
+          <div style="width: 390px; background: var(--color-bg-page); border-radius: 12px;">
+            <div class="tv-mobile-page-title">სერიალი</div>
+          </div>
+          <div style="width: 390px; background: var(--color-bg-page); border-radius: 12px;">
+            <div class="tv-mobile-page-title">ფილმები</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- MOBILE BOTTOM TAB BAR (signature) ---------- -->
+    <div class="sg-subsection" id="mobile-tabbar">
+      <h3 class="sg-subsection-title">Bottom Tab Bar — Signature Element</h3>
+      <p class="sg-subsection-note">The most distinctive element in the entire design system: a bold red curved line that dips around the active tab, making it appear as if the active tab has pushed up through the red accent. This is the brand's visual signature in the mobile app.</p>
+
+      <div class="sg-component-frame" style="background: #05080C; padding: 48px 24px;">
+        <span class="sg-component-label">mobile/tabbar · home active</span>
+        <div style="width: 390px; margin: 0 auto; background: var(--color-bg-page); position: relative; border-radius: 0 0 40px 40px; overflow: hidden;">
+          <!-- The red curved accent line — SVG for precision -->
+          <svg width="390" height="32" viewBox="0 0 390 32" style="display: block;" preserveAspectRatio="none">
+            <path d="M 0,16 L 60,16 C 72,16 72,0 84,0 L 116,0 C 128,0 128,16 140,16 L 390,16 L 390,22 L 140,22 C 134,22 132,8 126,8 L 74,8 C 68,8 66,22 60,22 L 0,22 Z" fill="#CF1020"/>
+          </svg>
+          <div style="display: flex; align-items: center; justify-content: space-around; padding: 0 0 20px; background: var(--color-bg-page); position: relative; margin-top: -8px;">
+            <!-- Active home tab (elevated) -->
+            <button class="tv-mobile-tab tv-mobile-tab-active" style="margin-top: -24px;">
+              <div class="tv-mobile-tab-active-icon" style="margin-top: 0;">
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="none"><path d="M2 9l7-7 7 7v7a1 1 0 01-1 1h-3v-5H6v5H3a1 1 0 01-1-1V9z" fill="#FFF"/></svg>
+              </div>
+            </button>
+            <button class="tv-mobile-tab" style="padding-top: 18px;">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M7 8l4 1-4 1V8z" fill="#FFF"/></svg>
+            </button>
+            <button class="tv-mobile-tab" style="padding-top: 18px;">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="11" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M5 6h8M5 9h8M5 12h5" stroke="#FFF" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </button>
+            <button class="tv-mobile-tab" style="padding-top: 18px;">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="11" height="8" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M6 15h3M13 6l3-2v10l-3-2V6z" stroke="#FFF" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="tv-mobile-tab" style="padding-top: 18px;">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame" style="background: #05080C; padding: 48px 24px;">
+        <span class="sg-component-label">mobile/tabbar · series active (middle shifts position)</span>
+        <div style="width: 390px; margin: 0 auto; background: var(--color-bg-page); position: relative; border-radius: 0 0 40px 40px; overflow: hidden;">
+          <svg width="390" height="32" viewBox="0 0 390 32" style="display: block;" preserveAspectRatio="none">
+            <path d="M 0,16 L 177,16 C 189,16 189,0 201,0 L 233,0 C 245,0 245,16 257,16 L 390,16 L 390,22 L 257,22 C 251,22 249,8 243,8 L 191,8 C 185,8 183,22 177,22 L 0,22 Z" fill="#CF1020"/>
+          </svg>
+          <div style="display: flex; align-items: center; justify-content: space-around; padding: 0 0 20px; background: var(--color-bg-page); position: relative; margin-top: -8px;">
+            <button class="tv-mobile-tab" style="padding-top: 18px;">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none"><path d="M2 9l7-7 7 7v7a1 1 0 01-1 1h-3v-5H6v5H3a1 1 0 01-1-1V9z" stroke="#FFF" stroke-width="1.5" fill="none"/></svg>
+            </button>
+            <button class="tv-mobile-tab" style="padding-top: 18px;">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M7 8l4 1-4 1V8z" fill="#FFF"/></svg>
+            </button>
+            <button class="tv-mobile-tab tv-mobile-tab-active" style="margin-top: -24px;">
+              <div class="tv-mobile-tab-active-icon" style="margin-top: 0;">
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="11" rx="1" fill="#FFF"/><path d="M5 6h8M5 9h8M5 12h5" stroke="#0B1016" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </div>
+            </button>
+            <button class="tv-mobile-tab" style="padding-top: 18px;">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="11" height="8" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M6 15h3M13 6l3-2v10l-3-2V6z" stroke="#FFF" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="tv-mobile-tab" style="padding-top: 18px;">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- MOBILE HERO ---------- -->
+    <div class="sg-subsection" id="mobile-hero">
+      <h3 class="sg-subsection-title">Mobile Hero Carousel</h3>
+      <p class="sg-subsection-note">Square-ish hero (aspect ~1:1) with gradient fade to page background, outline CTA, and pagination dots below.</p>
+
+      <div class="sg-component-frame" style="background: #05080C; display: flex; justify-content: center;">
+        <span class="sg-component-label">mobile/hero</span>
+        <div style="width: 390px; background: var(--color-bg-page); border-radius: 20px; overflow: hidden; border: 1px solid var(--color-border-subtle); margin-top: 20px;">
+          <div class="tv-mobile-hero">
+            <div class="tv-mobile-hero-img" style="background: linear-gradient(135deg, #3A0A0F 0%, #8B1020 30%, #6A1020 60%, #1A0205 100%); position: relative;">
+              <div style="position: absolute; top: 30%; right: 10%; color: rgba(255,255,255,0.2); font-size: 100px; font-weight: 900;">⟡</div>
+            </div>
+            <div class="tv-mobile-hero-gradient"></div>
+            <div class="tv-mobile-hero-content">
+              <div class="tv-mobile-hero-title">ეგრისის დიდი ომი</div>
+              <button class="tv-mobile-hero-cta">
+                <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#CF1020"/></svg>
+                <span style="color: rgba(207, 16, 32, 0.7); font-weight: 800; font-size: 18px;">ეგრისის დიდი ომი</span>
+              </button>
+              <div style="color: rgba(207, 16, 32, 0.5); font-size: 12px; font-weight: 500; margin-top: -4px; margin-left: 38px;">მეორე სერია</div>
+            </div>
+          </div>
+          <div class="tv-carousel-dots">
+            <button class="tv-carousel-dot" style="width: 8px; background: #FFF;"></button>
+            <button class="tv-carousel-dot"></button>
+            <button class="tv-carousel-dot"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- MOBILE SECTION TITLE + GRID ---------- -->
+    <div class="sg-subsection" id="mobile-grid">
+      <h3 class="sg-subsection-title">Mobile Section Title & Grid</h3>
+      <p class="sg-subsection-note">Mobile uses centered section titles (unlike desktop which left-aligns). Two-column portrait grid for series listings.</p>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">mobile/section-title</span>
+        <div style="width: 390px; margin: 16px auto 0; background: var(--color-bg-page); border-radius: 12px; padding: 8px 0;">
+          <div class="tv-mobile-section-title">ახალი დამატებული</div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame" style="background: #05080C; display: flex; justify-content: center;">
+        <span class="sg-component-label">mobile/grid-2col</span>
+        <div style="width: 390px; background: var(--color-bg-page); border-radius: 20px; overflow: hidden; border: 1px solid var(--color-border-subtle); padding: 16px 0; margin-top: 20px;">
+          <div class="tv-mobile-grid-2">
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(180deg, #d4c8a0 0%, #a89568 50%, #4a3d20 100%); position: relative;"><div style="position: absolute; top: 15%; left: 0; right: 0; text-align: center; font-family: serif; font-size: 16px; color: #5a2a0a; font-style: italic;">Le temps<br>des paysans</div></div></div>
+              <div class="tv-card-body"><div class="tv-card-title" style="padding: 0 2px;">გლეხების დრო</div><div class="tv-card-meta" style="padding: 0 2px;">დოკუმენტური</div></div>
+            </div>
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(180deg, #5a6a7a 0%, #2a3a4a 100%); position: relative;"><div style="position: absolute; bottom: 15%; left: 0; right: 0; text-align: center; font-family: serif; font-size: 16px; color: #FFF; font-weight: 700; letter-spacing: 0.04em;">SEI DONNE</div><div style="position: absolute; bottom: 9%; left: 0; right: 0; text-align: center; font-family: serif; font-size: 9px; color: #FFF; font-style: italic;">Il Mistero di Leila</div></div></div>
+              <div class="tv-card-body"><div class="tv-card-title" style="padding: 0 2px;">ექვსი ქალი</div><div class="tv-card-meta" style="padding: 0 2px;">თრილერი</div></div>
+            </div>
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: radial-gradient(ellipse at top, #0a2a4a 0%, #000 100%); position: relative;"><div style="position: absolute; top: 40%; left: 0; right: 0; text-align: center; font-family: sans-serif; font-size: 13px; color: #FFF; letter-spacing: 0.08em;">The Magic<br><span style="font-size: 18px; font-weight: 700;">CIRCLE</span><br><span style="font-size: 9px; opacity: 0.8;">of the reef</span></div></div></div>
+              <div class="tv-card-body"><div class="tv-card-title" style="padding: 0 2px;">რიფის ჯადოსნური წრე</div><div class="tv-card-meta" style="padding: 0 2px;">დოკუმენტური</div></div>
+            </div>
+            <div class="tv-card tv-card-portrait">
+              <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #8B5A3C 0%, #E07A3A 100%); position: relative;"><div style="position: absolute; top: 30%; right: 8px; color: #FFF; font-weight: 900; font-size: 20px; line-height: 1; text-align: right;">FACE<br>à<br>FACE</div></div></div>
+              <div class="tv-card-body"><div class="tv-card-title" style="padding: 0 2px;">სახე სახის</div><div class="tv-card-meta" style="padding: 0 2px;">დრამა</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-component-frame">
+        <span class="sg-component-label">mobile/filters</span>
+        <div style="width: 390px; margin: 16px auto 0; background: var(--color-bg-page); border-radius: 12px;">
+          <div class="tv-mobile-filters">
+            <button class="tv-select" style="flex: 1; min-width: 0;">
+              <span class="tv-select-placeholder">ჟანრი</span>
+              <svg class="tv-icon-sm" viewBox="0 0 18 18" fill="none"><path d="M2 6l4 4 4-4" stroke="#FFF" stroke-linecap="round"/></svg>
+            </button>
+            <button class="tv-select" style="min-width: 100px;">
+              <span>წელი</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- MOBILE PLAYER ---------- -->
+    <div class="sg-subsection" id="mobile-player">
+      <h3 class="sg-subsection-title">Mobile Video Player</h3>
+      <p class="sg-subsection-note">Unlike the desktop player (controls overlay the video), the mobile player uses a stacked layout: screen on top, full-width scrubber below, then three action buttons (share, settings, fullscreen).</p>
+
+      <div class="sg-component-frame" style="background: #05080C; display: flex; justify-content: center;">
+        <span class="sg-component-label">mobile/player</span>
+        <div style="width: 390px; background: var(--color-bg-page); border-radius: 20px; overflow: hidden; border: 1px solid var(--color-border-subtle); margin-top: 20px;">
+          <div class="tv-mobile-statusbar">
+            <span>12:36</span>
+            <div class="tv-mobile-statusbar-icons">
+              <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="7" width="3" height="4" rx="1" fill="#FFF"/><rect x="4" y="5" width="3" height="6" rx="1" fill="#FFF"/><rect x="8" y="3" width="3" height="8" rx="1" fill="#FFF"/><rect x="12" y="1" width="3" height="10" rx="1" fill="#FFF"/></svg>
+              <div class="tv-mobile-battery">47</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 16px;">
+            <button class="tv-mobile-iconbtn" style="border: none;">
+              <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+            <div style="display: flex; gap: 4px;">
+              <div class="tv-mobile-live-pill">
+                <span style="position: absolute; top: 3px; left: 4px; font-size: 8px;">LIVE</span>
+                <svg width="12" height="14" viewBox="0 0 30 30" style="opacity: 0.6;"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#FFF"/></svg>
+              </div>
+              <div class="tv-mobile-live-pill">
+                <span style="position: absolute; top: 3px; left: 4px; font-size: 8px;">LIVE</span>
+                <svg width="12" height="14" viewBox="0 0 30 30" style="opacity: 0.4;"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#FFF"/></svg>
+              </div>
+              <button class="tv-mobile-iconbtn">
+                <svg class="tv-icon" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.5 2 4.5 4 4.5 6.5v3L3 12h12l-1.5-2.5v-3C13.5 4 11.5 2 9 2z" stroke="#FFF" fill="none" stroke-linejoin="round"/><path d="M7.5 14a1.5 1.5 0 003 0" stroke="#FFF"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="tv-mobile-player">
+            <div class="tv-mobile-player-screen">
+              <div style="position: absolute; top: 12px; left: 12px;">
+                <svg width="20" height="20" viewBox="0 0 18 18" fill="none" style="opacity: 0.7;"><path d="M7 4l5-1v11a2 2 0 11-2-2V5l-3 1v8a2 2 0 11-2-2V4z" stroke="#FFF" stroke-linejoin="round" fill="none"/></svg>
+              </div>
+              <div class="tv-mobile-player-controls">
+                <button class="tv-mobile-player-skip">
+                  <svg width="28" height="28" viewBox="0 0 18 18" fill="none"><path d="M12 3v12l-7-6 7-6z" fill="#FFF"/><rect x="3" y="3" width="2" height="12" fill="#FFF"/></svg>
+                </button>
+                <button class="tv-mobile-player-skip">
+                  <svg width="28" height="28" viewBox="0 0 18 18" fill="none"><path d="M8 3L1 9l7 6V3zM15 3L8 9l7 6V3z" fill="#FFF"/></svg>
+                </button>
+                <button class="tv-mobile-player-pause">
+                  <svg width="36" height="36" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="3" height="12" rx="1" fill="#FFF"/><rect x="10" y="3" width="3" height="12" rx="1" fill="#FFF"/></svg>
+                </button>
+                <button class="tv-mobile-player-skip">
+                  <svg width="28" height="28" viewBox="0 0 18 18" fill="none"><path d="M10 3l7 6-7 6V3zM3 3l7 6-7 6V3z" fill="#FFF"/></svg>
+                </button>
+                <button class="tv-mobile-player-skip">
+                  <svg width="28" height="28" viewBox="0 0 18 18" fill="none"><path d="M6 3v12l7-6-7-6z" fill="#FFF"/><rect x="13" y="3" width="2" height="12" fill="#FFF"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="tv-mobile-player-meta">
+              <span>00:00:01</span>
+              <span>01:11:13</span>
+            </div>
+            <div class="tv-mobile-player-scrub">
+              <div class="tv-mobile-player-scrub-fill"></div>
+              <div class="tv-mobile-player-scrub-dot"></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 0 4px;">
+              <div class="tv-mobile-player-scrub" style="flex: 1;"></div>
+              <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M3 6v6h2l4 4V2L5 6H3z" fill="#FFF"/><path d="M12 6c1.5 1 1.5 5 0 6" stroke="#FFF" stroke-linecap="round"/></svg>
+            </div>
+            <div class="tv-mobile-player-actions">
+              <button class="tv-mobile-player-action">
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="none"><circle cx="4" cy="9" r="2" stroke="#FFF" stroke-width="1.5" fill="none"/><circle cx="14" cy="4" r="2" stroke="#FFF" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M6 8l6-3M6 10l6 3" stroke="#FFF" stroke-width="1.3"/></svg>
+              </button>
+              <button class="tv-mobile-player-action">
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="2.5" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M9 1v2M9 15v2M1 9h2M15 9h2M3.5 3.5l1.4 1.4M13.1 13.1l1.4 1.4M3.5 14.5l1.4-1.4M13.1 4.9l1.4-1.4" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+              <button class="tv-mobile-player-action">
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="none"><path d="M2 2h5M2 2v5M16 2h-5M16 2v5M2 16h5M2 16v-5M16 16h-5M16 16v-5" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </div>
+          <div style="padding: 20px 16px;">
+            <div style="color: var(--color-text-muted); font-size: 14px; margin-bottom: 4px;">ეგრისის დიდი ომი</div>
+            <div style="color: var(--color-text-primary); font-size: 20px; font-weight: 700; line-height: 1.2; margin-bottom: 8px;">ეგრისის დიდი ომი | მეორე ნაწილი</div>
+            <div style="color: var(--color-text-muted); font-size: 13px; margin-bottom: 20px;">2026 | U</div>
+            <div class="tv-pill-tabs">
+              <button class="tv-pill-tab tv-pill-tab-active">ეპიზოდები</button>
+              <button class="tv-pill-tab">მიმოხილვა</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- FULL MOBILE FRAME COMPOSITIONS ---------- -->
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Full Screen Compositions</h3>
+      <p class="sg-subsection-note">Three complete mobile screens assembled from the components above — for reference and for designers composing similar layouts in Figma.</p>
+
+      <div class="sg-component-frame" style="background: #05080C; padding: 48px 24px;">
+        <span class="sg-component-label">mobile/screens · assembled</span>
+        <div style="display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; margin-top: 24px;">
+
+          <!-- Home screen -->
+          <div class="tv-mobile-frame">
+            <div class="tv-mobile-statusbar">
+              <span>12:36</span>
+              <div class="tv-mobile-statusbar-icons">
+                <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="7" width="3" height="4" rx="1" fill="#FFF"/><rect x="4" y="5" width="3" height="6" rx="1" fill="#FFF"/><rect x="8" y="3" width="3" height="8" rx="1" fill="#FFF"/><rect x="12" y="1" width="3" height="10" rx="1" fill="#FFF"/></svg>
+                <div class="tv-mobile-battery">48</div>
+              </div>
+            </div>
+            <div class="tv-mobile-topnav">
+              <a class="tv-logo" href="#" style="gap: 6px;">
+                <svg class="tv-logo-mark" style="width: 22px; height: 22px;" viewBox="0 0 30 30"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#CF1020"/></svg>
+                <span class="tv-logo-divider" style="height: 14px;"></span>
+                <span class="tv-logo-wordmark" style="font-size: 14px;">1TVPLAY</span>
+              </a>
+              <div style="display: flex; gap: 4px;">
+                <div class="tv-mobile-live-pill"><span style="position: absolute; top: 3px; left: 4px; font-size: 8px;">LIVE</span><svg width="12" height="14" viewBox="0 0 30 30" style="opacity: 0.6;"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#FFF"/></svg></div>
+                <div class="tv-mobile-live-pill"><span style="position: absolute; top: 3px; left: 4px; font-size: 8px;">LIVE</span><svg width="12" height="14" viewBox="0 0 30 30" style="opacity: 0.4;"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#FFF"/></svg></div>
+                <button class="tv-mobile-iconbtn"><svg class="tv-icon" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#FFF"/><path d="M12 12l4 4" stroke="#FFF" stroke-linecap="round"/></svg></button>
+                <button class="tv-mobile-iconbtn"><svg class="tv-icon" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.5 2 4.5 4 4.5 6.5v3L3 12h12l-1.5-2.5v-3C13.5 4 11.5 2 9 2z" stroke="#FFF" fill="none" stroke-linejoin="round"/><path d="M7.5 14a1.5 1.5 0 003 0" stroke="#FFF"/></svg></button>
+              </div>
+            </div>
+            <div class="tv-mobile-hero" style="aspect-ratio: 1/1;">
+              <div class="tv-mobile-hero-img" style="background: linear-gradient(135deg, #3A0A0F 0%, #8B1020 30%, #6A1020 60%, #1A0205 100%);"></div>
+              <div class="tv-mobile-hero-gradient"></div>
+              <div class="tv-mobile-hero-content">
+                <div class="tv-mobile-hero-title">ეგრისის დიდი ომი</div>
+                <button class="tv-mobile-hero-cta">
+                  <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M5 3l8 6-8 6V3z" fill="#CF1020"/></svg>
+                  <span style="color: rgba(207, 16, 32, 0.7); font-weight: 800; font-size: 16px;">ეგრისის დიდი ომი</span>
+                </button>
+              </div>
+            </div>
+            <div class="tv-carousel-dots" style="padding: 8px 16px 0;">
+              <button class="tv-carousel-dot" style="width: 8px; background: #FFF;"></button>
+              <button class="tv-carousel-dot"></button>
+              <button class="tv-carousel-dot"></button>
+            </div>
+            <div class="tv-mobile-section-title">ახალი დამატებული</div>
+            <div class="tv-mobile-grid-2" style="padding: 0 16px 24px;">
+              <div class="tv-card tv-card-landscape">
+                <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #3A0A0F 0%, #8B1020 100%);"></div></div>
+                <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">ეგრისის დიდი ომი | მეორე ნაწილი</div></div>
+              </div>
+              <div class="tv-card tv-card-landscape">
+                <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #0A2A4A 0%, #1A4A7A 100%);"></div></div>
+                <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">შენ შეგიძლია მოიგო ასი ათასი</div></div>
+              </div>
+            </div>
+            <!-- Tab bar -->
+            <div style="margin-top: auto; position: relative;">
+              <svg width="390" height="32" viewBox="0 0 390 32" style="display: block;" preserveAspectRatio="none">
+                <path d="M 0,16 L 60,16 C 72,16 72,0 84,0 L 116,0 C 128,0 128,16 140,16 L 390,16 L 390,22 L 140,22 C 134,22 132,8 126,8 L 74,8 C 68,8 66,22 60,22 L 0,22 Z" fill="#CF1020"/>
+              </svg>
+              <div style="display: flex; align-items: center; justify-content: space-around; padding: 0 0 20px; background: var(--color-bg-page); position: relative; margin-top: -8px;">
+                <button class="tv-mobile-tab tv-mobile-tab-active" style="margin-top: -24px;">
+                  <div class="tv-mobile-tab-active-icon" style="margin-top: 0;"><svg width="22" height="22" viewBox="0 0 18 18" fill="none"><path d="M2 9l7-7 7 7v7a1 1 0 01-1 1h-3v-5H6v5H3a1 1 0 01-1-1V9z" fill="#FFF"/></svg></div>
+                </button>
+                <button class="tv-mobile-tab" style="padding-top: 18px;"><svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M7 8l4 1-4 1V8z" fill="#FFF"/></svg></button>
+                <button class="tv-mobile-tab" style="padding-top: 18px;"><svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="11" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M5 6h8M5 9h8M5 12h5" stroke="#FFF" stroke-width="1.3" stroke-linecap="round"/></svg></button>
+                <button class="tv-mobile-tab" style="padding-top: 18px;"><svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="11" height="8" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M6 15h3M13 6l3-2v10l-3-2V6z" stroke="#FFF" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg></button>
+                <button class="tv-mobile-tab" style="padding-top: 18px;"><svg width="24" height="24" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Series listing screen -->
+          <div class="tv-mobile-frame">
+            <div class="tv-mobile-statusbar">
+              <span>12:36</span>
+              <div class="tv-mobile-statusbar-icons">
+                <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="7" width="3" height="4" rx="1" fill="#FFF"/><rect x="4" y="5" width="3" height="6" rx="1" fill="#FFF"/><rect x="8" y="3" width="3" height="8" rx="1" fill="#FFF"/><rect x="12" y="1" width="3" height="10" rx="1" fill="#FFF"/></svg>
+                <div class="tv-mobile-battery">48</div>
+              </div>
+            </div>
+            <div class="tv-mobile-topnav">
+              <div style="font-size: 22px; font-weight: 700; color: var(--color-text-primary); padding: 4px 0;">სერიალი</div>
+              <div style="display: flex; gap: 4px;">
+                <div class="tv-mobile-live-pill"><span style="position: absolute; top: 3px; left: 4px; font-size: 8px;">LIVE</span><svg width="12" height="14" viewBox="0 0 30 30" style="opacity: 0.6;"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#FFF"/></svg></div>
+                <div class="tv-mobile-live-pill"><span style="position: absolute; top: 3px; left: 4px; font-size: 8px;">LIVE</span><svg width="12" height="14" viewBox="0 0 30 30" style="opacity: 0.4;"><path d="M27.814 0H2.186A2.189 2.189 0 000 2.186v25.628A2.189 2.189 0 002.186 30h25.627A2.19 2.19 0 0030 27.814V2.186A2.188 2.188 0 0027.814 0M18.75 18.725a.611.611 0 01-.184.437l-7.317 7.25V12.46a.62.62 0 01.185-.439l7.316-7.25z" fill="#FFF"/></svg></div>
+                <button class="tv-mobile-iconbtn"><svg class="tv-icon" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#FFF"/><path d="M12 12l4 4" stroke="#FFF" stroke-linecap="round"/></svg></button>
+                <button class="tv-mobile-iconbtn"><svg class="tv-icon" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.5 2 4.5 4 4.5 6.5v3L3 12h12l-1.5-2.5v-3C13.5 4 11.5 2 9 2z" stroke="#FFF" fill="none" stroke-linejoin="round"/><path d="M7.5 14a1.5 1.5 0 003 0" stroke="#FFF"/></svg></button>
+              </div>
+            </div>
+            <div class="tv-mobile-filters">
+              <button class="tv-select" style="flex: 1; min-width: 0;"><span class="tv-select-placeholder">ჟანრი</span><svg class="tv-icon-sm" viewBox="0 0 18 18" fill="none"><path d="M2 6l4 4 4-4" stroke="#FFF" stroke-linecap="round"/></svg></button>
+              <button class="tv-select" style="min-width: 100px;"><span>წელი</span></button>
+            </div>
+            <div class="tv-mobile-grid-2">
+              <div class="tv-card tv-card-portrait">
+                <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(180deg, #d4c8a0 0%, #4a3d20 100%);"></div></div>
+                <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">გლეხების დრო</div><div class="tv-card-meta">დოკუმენტური</div></div>
+              </div>
+              <div class="tv-card tv-card-portrait">
+                <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(180deg, #5a6a7a 0%, #2a3a4a 100%);"></div></div>
+                <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">ექვსი ქალი</div><div class="tv-card-meta">თრილერი</div></div>
+              </div>
+              <div class="tv-card tv-card-portrait">
+                <div class="tv-card-media"><div class="tv-placeholder-img" style="background: radial-gradient(ellipse at top, #0a2a4a 0%, #000 100%);"></div></div>
+                <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">რიფის ჯადოსნური წრე</div><div class="tv-card-meta">დოკუმენტური</div></div>
+              </div>
+              <div class="tv-card tv-card-portrait">
+                <div class="tv-card-media"><div class="tv-placeholder-img" style="background: linear-gradient(135deg, #8B5A3C 0%, #E07A3A 100%);"></div></div>
+                <div class="tv-card-body"><div class="tv-card-title" style="font-size: 13px;">სახე სახის</div><div class="tv-card-meta">დრამა</div></div>
+              </div>
+            </div>
+            <!-- Tab bar (series active) -->
+            <div style="margin-top: auto; position: relative;">
+              <svg width="390" height="32" viewBox="0 0 390 32" style="display: block;" preserveAspectRatio="none">
+                <path d="M 0,16 L 177,16 C 189,16 189,0 201,0 L 233,0 C 245,0 245,16 257,16 L 390,16 L 390,22 L 257,22 C 251,22 249,8 243,8 L 191,8 C 185,8 183,22 177,22 L 0,22 Z" fill="#CF1020"/>
+              </svg>
+              <div style="display: flex; align-items: center; justify-content: space-around; padding: 0 0 20px; background: var(--color-bg-page); position: relative; margin-top: -8px;">
+                <button class="tv-mobile-tab" style="padding-top: 18px;"><svg width="24" height="24" viewBox="0 0 18 18" fill="none"><path d="M2 9l7-7 7 7v7a1 1 0 01-1 1h-3v-5H6v5H3a1 1 0 01-1-1V9z" stroke="#FFF" stroke-width="1.5" fill="none"/></svg></button>
+                <button class="tv-mobile-tab" style="padding-top: 18px;"><svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M7 8l4 1-4 1V8z" fill="#FFF"/></svg></button>
+                <button class="tv-mobile-tab tv-mobile-tab-active" style="margin-top: -24px;">
+                  <div class="tv-mobile-tab-active-icon" style="margin-top: 0;"><svg width="22" height="22" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="11" rx="1" fill="#FFF"/><path d="M5 6h8M5 9h8M5 12h5" stroke="#0B1016" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+                </button>
+                <button class="tv-mobile-tab" style="padding-top: 18px;"><svg width="24" height="24" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="11" height="8" rx="1" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M6 15h3M13 6l3-2v10l-3-2V6z" stroke="#FFF" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg></button>
+                <button class="tv-mobile-tab" style="padding-top: 18px;"><svg width="24" height="24" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="#FFF" stroke-width="1.5" fill="none"/><path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — USAGE NOTES
+       ============================================================ -->
+  <section class="sg-section">
+    <div class="sg-section-header">
+      <h2 class="sg-section-title">
+        <span class="sg-section-number">04</span>
+        Import Notes
+      </h2>
+      <p class="sg-section-desc">Guidance for importing this styleguide into Figma via the html.to.design plugin.</p>
+    </div>
+
+    <div class="sg-component-frame">
+      <div style="max-width: 720px; color: var(--color-text-secondary); line-height: 1.7; font-size: 15px;">
+        <p style="margin-bottom: 16px;"><b style="color: var(--color-text-primary);">1. Host this file.</b> Push <code style="background: var(--color-bg-surface); padding: 2px 6px; border-radius: 4px; font-family: Monaco, monospace; font-size: 13px; color: var(--color-brand-red);">1tvplay-styleguide.html</code> to a GitHub repo and enable GitHub Pages. You'll get a public URL like <code style="background: var(--color-bg-surface); padding: 2px 6px; border-radius: 4px; font-family: Monaco, monospace; font-size: 13px;">username.github.io/repo</code>.</p>
+        <p style="margin-bottom: 16px;"><b style="color: var(--color-text-primary);">2. Install html.to.design.</b> From the Figma community. Open a new Figma file, run the plugin, and paste the GitHub Pages URL.</p>
+        <p style="margin-bottom: 16px;"><b style="color: var(--color-text-primary);">3. What imports well.</b> All components render as nested frames with correct flexbox → auto-layout translation. Colors, typography scales, radii, and spacing arrive as raw values in a clean layer tree. Text uses the actual fonts (Noto Sans Georgian).</p>
+        <p style="margin-bottom: 16px;"><b style="color: var(--color-text-primary);">4. What needs manual work.</b> CSS variables don't automatically become Figma variables — you'll need the Tokens Studio plugin to convert them, or do it manually. Components import as frames, not Figma component instances — you'll right-click and "Create component" on the ones you want reusable. Hover states are rendered statically side-by-side here specifically because html.to.design can't capture interactive states; pick the variants you want and promote them to component variants in Figma.</p>
+        <p style="margin-bottom: 16px;"><b style="color: var(--color-text-primary);">5. The mobile tab bar curve.</b> The signature red curve under the active tab is an inline SVG path. It imports as a vector shape — editable in Figma's pen tool if you need to tweak the curve geometry.</p>
+        <p><b style="color: var(--color-text-primary);">6. Placeholder images.</b> All card thumbnails use CSS gradients rather than external URLs — this keeps the import self-contained. Swap them with real assets once in Figma.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
